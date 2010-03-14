@@ -1,0 +1,582 @@
+/*                                   ,----,                                 
+ *                                 ,/   .`|                                 
+ *      ,---,       .--.--.      ,`   .'  :,-.----.      ,---,    ,---,     
+ *     '  .' \     /  /    '.  ;    ;     /\    /  \  ,`--.' |  .'  .' `\   
+ *    /  ;    '.  |  :  /`. /.'___,/    ,' ;   :    \ |   :  :,---.'     \  
+ *   :  :       \ ;  |  |--` |    :     |  |   | .\ : :   |  '|   |  .`\  | 
+ *   :  |   /\   \|  :  ;_   ;    |.';  ;  .   : |: | |   :  |:   : |  '  | 
+ *   |  :  ' ;.   :\  \    `.`----'  |  |  |   |  \ : '   '  ;|   ' '  ;  : 
+ *   |  |  ;/  \   \`----.   \   '   :  ;  |   : .  / |   |  |'   | ;  .  | 
+ *   '  :  | \  \ ,'__ \  \  |   |   |  '  ;   | |  \ '   :  ;|   | :  |  ' 
+ *   |  |  '  '--' /  /`--'  /   '   :  |  |   | ;\  \|   |  ''   : | /  ;  
+ *   |  :  :      '--'.     /    ;   |.'   :   ' | \.''   :  ||   | '` ,/   
+ *   |  | ,'        `--'---'     '---'     :   : :-'  ;   |.' ;   :  .'     
+ *   `--''                                 |   |.'    '---'   |   ,.' Tyler      
+ * ActionScript tested rapid iterative dev `---' Copyright2010'---'  Larson
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * http://www.gnu.org/licenses
+ */
+package framework.net
+{
+	import flash.display.Loader;
+	import flash.display.LoaderInfo;
+	import flash.display.Bitmap;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.events.ProgressEvent;
+	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
+	import flash.external.ExternalInterface;
+	import flash.net.URLRequest;
+	import flash.utils.Dictionary;
+	import flash.utils.getTimer;
+	import flash.system.LoaderContext;
+	import flash.system.SecurityDomain;
+	import flash.system.ApplicationDomain;
+	
+	import framework.cache.Cache;
+	import framework.debug.Log;
+	
+	[Event(name='progress', type='flash.event.ProgressEvent')]
+	[Event(name='complete', type='flash.event.Event')]
+	
+	public class Assets extends EventDispatcher
+	{
+		// Asset types
+		public static const GRAPHIC:String = "graphic"; // loaded with Loader
+		public static const SWF:String = "swf"; // loaded with Loader
+		public static const TEXT:String = "text";
+		public static const BINARY:String = "binary";
+		public static const VARIABLES:String = "variables";
+		public static const XMLDATA:String = "xml";
+		public static const JSON:String = "json";
+		public static const REMOVED:String = "removed";
+		
+		private var _cache:Cache;
+		private var _jobs:Array = []; // list of currently open _jobs
+		private var _currentJob:Job; // contains the assets added since the last start call
+		private var _lastJob:Job;
+		private var _assetsLoading:Dictionary = new Dictionary(false);	// list of everything that has already begun loading
+		private var _swfLoaders:Dictionary = new Dictionary(false); 		// a workaround; loaderInfo.loader throws an error until the asset is done loading.
+		private var _loaders:Array= []; // so that we have something to stop
+		private var _bytesLoaded:int = 0;
+		private var _bytesTotal:int = 0;
+		private var _speed:Number;
+		private var _speedChecks:Array = [];
+		private var _lastBytesCheck:Number = 0;
+        private var _lastSpeedCheck:int = getTimer();
+		private var _que:Array = [];
+		private var _currentlyLoading:int = 0;
+		
+		/**
+		*	@Constructor
+		*	@param	cache	 all loaded files will be loaded into a Cache object that is passed in here.
+		*	@example
+		*		var l:Assets = new Assets();
+		*		var j:* = l.currentJob; 	
+		*		l.add("file.txt", options);
+		*		j.addEventListener(ProgressEvent.PROGRESS, onProgress);
+		*		j.addEventListener(Event.COMPLETE, onComplete);
+		*		l.start();
+		*/
+		public function Assets( cache:Cache=null )
+		{
+			super();
+			
+			if( cache != null ) {
+				_cache = cache;
+				if( cache.assets == null ) {
+					_cache.assets = {};
+				}
+			}else{
+				_cache = new Cache();
+				_cache.assets = {};
+			}
+			_currentJob = new Job();
+		}
+		
+		/**
+		 *	Public getter for _cache
+		 */
+		public function get cache():Cache
+		{ 
+			return _cache; 
+		}
+		public function set cache( value:Cache ):void
+		{ 
+			_cache = value; 
+		}
+		
+		/**
+		 * Retrieve an Assets data after it has been loaded.
+		 * @example	assets.fetch("fileName", true); 
+		 * @param	name	 String name of asset, if name wasn't set it will be the URL.
+		 * @param	destroy	 Boolean, set to true if you want to delete asset from memory, default is false.
+		 * @return  Returns data from loaded Asset
+		 */
+		public function fetch( name:String, destroy:Boolean=false ) : *
+		{
+			var asset:Asset = _cache.assets[name];
+			if( asset != null ) {
+				var result:* = asset.data;
+				if( destroy ) {
+					_cache.assets[name] = null;
+				}
+				return result;
+			}
+			return
+		} 
+		
+		/**
+		 *	This method adds new assets to be loaded.
+		 *	@example
+		 *		var assets:Assets = new Assets();
+		 *		assets.add('myFile.jpg').addEventListener(Event.COMPLETE,onFileLoaded);
+		 *		assets.load();
+		 *	@param	url	 The path to the file you would like to load as a String 
+		 *	@param	options	 Object of potencail objects for this file while loading
+		 *	@return	Returns an instance of the Asset that it has created, you can listen to and retrieve info from this
+		 */
+		public function add( url:String, options:Object=null ) : Asset
+		{
+			// pushes the asset onto the next job, and gives the job reference to the asset
+			var asset:Asset
+			
+			if( options == null )
+				asset = new Asset( url, url, _currentJob );
+			else
+				asset = new Asset( url, options.name||url, options.job||_currentJob, options.type, options.method, options.format, options.usePolicy );
+			
+			asset.job.push( asset );
+			
+			return asset;
+		}
+		
+		/**
+		 *	This is a helper function for anyone that likes code completion while defining options for calling the add method.
+		 *	You dont need to use this but it makes things a little simpler unless you want to define just one paramiter. 
+		 *	@param	name	 	The name that you can reference your asset from within the cache.
+		 *	@param	type	 	The type of file that we need to load, either; text, graphic or swf
+		 *	@param	method	 	The HTTP method that you would like to use, GET or POST
+		 *	@param	job	 		If you would like to push this Asset into a job that is still loading
+		 *  @param	usePolicy	Boolean if you would like to use the cross domain policy file for this asset
+		 *	@param	onComplete	To automaticly call a method when the asset is loaded you can define a call back here 
+		 *	@return	Returns a simple object with these paramiters inside of it.
+		 */
+		public function options( name:String=null, type:String="text", method:String="get", job:Job=null, usePolicy:Boolean=true, onComplete:Function=null ) : Object
+		{
+			return { name:name, job:job||_currentJob, type:type, method:method, usePolicy:usePolicy, onComplete:onComplete };
+		}
+		
+		/**
+		 *	Start the loading with this method. Every time you call load() the current Job is closed and 
+		 *	the files within it start loading. This Job will keep track of all of the files that you have added to it.
+		 *	If you run accross security issues pass in a MouseEvent as an argument. 
+		 *	This is normally not needed unless you are posting files.
+		 *	@example
+		 *		var assets:Assets = new Assets();
+		 *		assets.add('myFile.jpg');
+		 *		assets.load().addEventListener(Event.COMPLETE,onAssetsLoaded);
+		 *	@param	event	 Because of the security restrictions while posting data, 
+		 *		if you are going to upload anything you should pass in a MouseEvent to load.
+		 *	@return	Returns an instance of the Job that everything is being loaded within. 
+		 *		You can listen for events on this Job object or get reference to the things loaded.
+		 */
+		public function load( event:MouseEvent=null ):Job
+		{
+			var job:Job = _currentJob;
+			_currentJob.event = event;
+			_lastBytesCheck = 0;
+			_lastSpeedCheck = getTimer();
+			_currentJob.forEach(startLoading);			
+			_jobs.push(_currentJob);
+			_lastJob = _currentJob;
+            _currentJob = new Job();
+            return job; 
+		}
+		
+		/**
+		 *	@return		Returns the Job that is currently being used to add Assets to.
+		 */
+		public function get currentJob() : Job {
+			return _currentJob;
+		}
+		
+		/**
+		 *	Stops all the Assets from loading that are in process
+		 */
+		public function close() : void
+		{
+			for each( var loader:* in _loaders ){
+				loader.close()
+			}
+		}
+		
+		/**
+		 *	Get the number of bytes loaded in total for everything that is loading
+		 *	@return		Returns a int of the total number of bytes that have been loaded for all jobs
+		 */
+		public function get bytesLoaded():int 
+		{
+			_bytesLoaded = 0;
+			for each (var job:Job in _jobs) {
+				if (job.bytesLoaded) {
+					_bytesLoaded += job.bytesLoaded;
+				}
+			}
+			return _bytesLoaded;
+		}
+
+		/**
+		 *	Get the number of bytes to be loaded in total for everything that is loading
+		 *	@return		Returns a int of the total number of bytes that are known to be needed to load for all jobs
+		 */
+		public function get bytesTotal():int 
+		{
+			_bytesTotal = 0;
+			for each (var job:Job in _jobs) {
+				if (job.bytesTotal) {
+					_bytesTotal += job.bytesTotal;
+				}
+			}
+			return _bytesTotal;
+		}
+		
+		/**
+		 *	Get the speed that you are currently downloading files
+		 *	@return		Returns the speed in bytes / second for all loadings
+		 */
+        public function get speed() : Number
+		{
+            var timeElapsed:int = getTimer() - _lastSpeedCheck;
+            var bytesDelta:Number = (bytesLoaded - _lastBytesCheck); // / 1024
+			if( bytesDelta > 0 ) {
+				_speed = Math.abs(bytesDelta)/(timeElapsed/1000);
+				_speedChecks.push( _speed );
+			} 
+            _lastSpeedCheck = timeElapsed;
+            _lastBytesCheck = _bytesLoaded;
+            return _speed;
+        }
+		
+		/**
+		 *	This is an average of all of the checks together
+		 *	@return		Returns the average speed in bytes / second across all speed checks
+		 */
+		public function get averageSpeed():Number
+		{
+			var average:Number = 0;
+			for each( var speed:Number in _speedChecks ) {
+				average += speed;
+			}
+			return average/_speedChecks.length;
+		}
+		
+		/**
+		 *	Used to remove the instances of everything needed to load an Asset after that Asset is loaded.
+		 *	If you would like to remove an Asset that should be done inside of the Cache.
+		 *	@private
+		 *	@param	asset	 reference for the Asset that you would like to remove.
+		 */
+		private function remove(asset:Asset):void
+		{
+			// expels a asset from its job
+			asset.dispatchEvent( new Event( REMOVED ) );
+			delete _assetsLoading[asset];
+			var job:Job = asset.job;
+			job.dispatchEvent( new Event( REMOVED ) );
+			job.remove(asset);
+			if( job.length == 0 ) endJob(job);
+		}
+		
+		/**
+		 *	Expels a loader from the loaders list
+		 *	@private
+		 *	@param	target	 Either a URLLoaderExtended or LoaderExtended object to be deleted
+		 */
+		private function removeLoader(target:*):void 
+		{
+			if (target is URLLoaderExtended) {
+				_loaders.splice(_loaders.indexOf(target), 1);
+			} else if (target is LoaderInfo) {
+				_loaders.splice(_loaders.indexOf(_swfLoaders[target]), 1);
+				delete _swfLoaders[target];
+			} else {
+				// Log.info("removeLoader:: unidentified target");
+			}
+		}
+		
+		/**
+		 *	Gets the asset associated with a Loader or URLLoader instance
+		 *	@private
+		 *	@param	target	 The Loader instance that this Asset is associated with.
+		 *	@return	Returns the asset object related to the target
+		 */
+		private function assetOf(target:*):Asset 
+		{
+			if (target is URLLoaderExtended) {
+				return target.asset;
+			} else if (target is LoaderInfo) {
+				return _swfLoaders[target].asset;
+			} else {
+				// Log.error("assetOf:: unidentified target", target);
+			}
+			return null;
+		}
+		
+		/**
+		 *	Starts a asset loading in currentJob.
+		 *	@private
+		 *	@param	asset	 The Asset that you want to start loading
+		 *	dont worry about the other arguments they are not used.
+		 */
+		private function startLoading(asset:Asset, index:int, arr:Array):void 
+		{
+			if( _assetsLoading[asset] == null ) { 
+				if( _currentlyLoading <= 5 ) { // IE only allows 5 http connections at once
+					_assetsLoading[asset] = asset;
+					switch ( asset.type ) {
+						case TEXT : loadText( asset, asset.job.event ); break;
+		                case GRAPHIC : case SWF : loadSwf( asset, asset.job.event ); break;
+						default : 
+							// Log.error("Unknown file type.", asset.url, asset.type); 
+							_currentJob.remove(asset);
+							break;
+		            }
+					_currentlyLoading++;
+				}else{
+					_que.push( asset );
+				}
+	  		}
+		}
+		
+		/**
+		 * If to many things are being loaded at once they are added to a que and then loaded 
+		 * later. This starts loading items in the que again if needed.
+		 * @private
+		 */
+		private function checkQue():void
+		{
+			if( _que.length != 0 ) {
+				for( var i:int = 0; i < ( 5 - _currentlyLoading ); i++ ) {
+					startLoading( _que.pop(), i, _que );
+				}
+			}
+		}
+		
+		/**
+		 *	Create a URLLoaderExtended for a text Asset to load
+		 *	@private
+		 *	@param	asset	 The Asset that you would like to load.
+		 *	@param	event	 The MouseEvent that you might have passed into the load method
+		 *	@return	Returns a URLLoaderExtended instance that was used to load the Asset
+		 */
+		private function loadText( asset:Asset, event:Event=null ) : URLLoaderExtended
+		{
+			var req:URLRequest = new URLRequest( asset.url.rawString );
+			var loader:URLLoaderExtended = new URLLoaderExtended();
+			loader.asset = asset;
+			asset.loader = loader;
+			
+			asset.setRequestVaribles( req );
+			
+			loader.addEventListener( ProgressEvent.PROGRESS, onProgress );
+			loader.addEventListener( IOErrorEvent.IO_ERROR, onIOError );
+			loader.addEventListener( Event.COMPLETE, onLoadText );
+			
+			loader.dataFormat = setDataFormat( asset.format );
+			
+			loader.load( req )
+
+			_loaders.push( loader )
+			
+			return loader
+		}
+		
+		/**
+		 *	Handles the completion of the loading process for a text Asset.
+		 *	@private
+		 *	@param	event	 The event that the complete event has passed through
+		 */
+		private function onLoadText( event:Event ) : void
+		{	
+			var asset:Asset = event.target.asset;
+
+			if( asset.format == XMLDATA ){
+				event.target.data = new XML(event.target.data);
+			}else if( asset.format == JSON ){ 
+			 // JavaScript's JSON parser built in and faster than Adobe's class, we can use it like this.
+				event.target.data = ExternalInterface.call("function(){return "+event.target.data+"}");
+			}
+			asset.data = event.target.data;
+			//asset.data = getFormatedData( event.target.data, asset.format );
+			
+			_currentlyLoading--;
+			checkQue();
+			
+			_cache.assets[asset.name] = asset;
+			asset.dispatchEvent( event );
+			remove(assetOf(event.target));
+			removeLoader(event.target);
+		}
+		
+		/**
+		 *	Starts up a Loader for a SWF/image asset
+		 *	@private
+		 *	@param	asset	 The Asset that you would like to load.
+		 *	@param	event	 The MouseEvent that you might have passed into the load method
+		 *	@return	Returns a LoaderExtended instance that was used to load the Asset
+		 */
+		private function loadSwf( asset:Asset, event:Event=null ) : Loader
+		{
+			var req:URLRequest = new URLRequest( asset.url.rawString )
+			var loader:LoaderExtended = new LoaderExtended();
+			_swfLoaders[loader.contentLoaderInfo] = loader;
+			loader.asset = asset;
+			asset.loader = loader;
+			
+			asset.setRequestVaribles( req );
+			
+			loader.contentLoaderInfo.addEventListener( ProgressEvent.PROGRESS, onProgress )
+			loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, onIOError )
+			loader.contentLoaderInfo.addEventListener( Event.COMPLETE, onLoadSwf )
+			
+			var loaderContext:LoaderContext = new LoaderContext();
+			if( asset.usePolicy ) {
+				loaderContext.checkPolicyFile = true;
+			}
+			loaderContext.securityDomain = SecurityDomain.currentDomain;
+			loaderContext.applicationDomain = ApplicationDomain.currentDomain;
+			loader.load( req, loaderContext );
+			
+			_loaders.push( loader );
+			
+			return loader
+		}
+		
+		/**
+		 *	Handles the completion of a SWF/image file's load
+		 *	@private
+		 *	@param	event	 The event that the complete event has passed through
+		 */
+		private function onLoadSwf( event:Event ) : void
+		{
+			var asset:Asset = assetOf(event.target);	
+			asset.data = event.target.content;
+		
+			if( asset.content is Bitmap && asset.usePolicy ) {
+				asset.content.smoothing = true;
+			} 
+			
+			_currentlyLoading--;
+			checkQue();
+			
+			_cache.assets[asset.name] = asset;
+			asset.dispatchEvent( event );
+			remove(assetOf(event.target));
+			removeLoader(event.target);
+		}
+		
+		/**
+		 *	When loading text data, it can be transformed by the URLLoader into that format when it is complete
+		 *	Because some data formats are just other forms of text the framework converts them later differently.
+		 *	@private
+		 *	@return		Returns a String constant for the data format
+		 */
+		private function setDataFormat( format:String = "text" ):String
+		{
+			if( format == TEXT || format == XMLDATA || format == JSON ) {
+				return TEXT;
+			}else if( format == BINARY || format == VARIABLES ){
+				return format;
+			}
+			return "This format isn't supported";
+		}
+		
+		/**
+		 *	Cleans up a job, now that its files are all loaded
+		 *	@private
+		 *	@param	job	 The Job object that has finished
+		 */
+		private function endJob(job:Job):void 
+		{
+			_jobs.splice(_jobs.indexOf(job));
+			
+			var progressEvent:ProgressEvent = new ProgressEvent( ProgressEvent.PROGRESS, true, false, 100, 100 );
+			var completeEvent:Event = new Event( Event.COMPLETE, true );
+			
+			job.dispatchEvent( progressEvent );
+			job.dispatchEvent( completeEvent );
+			dispatchEvent( progressEvent );
+			if( _jobs.length == 0 ) dispatchEvent( completeEvent );
+			
+			job.wipe();
+		}
+		
+		/**
+		 *	Dispatches progress events for all loaders
+		 *	@private
+		 *	@param	event	 The ProgressEvent
+		 */
+		private function onProgress( event:ProgressEvent ) : void
+		{
+			var progressEvent:ProgressEvent
+			
+			var asset:Asset = assetOf(event.target);
+			asset.bytesLoaded = event.bytesLoaded;
+			asset.bytesTotal ||= event.bytesTotal;
+			progressEvent = new ProgressEvent( ProgressEvent.PROGRESS, true, false, asset.bytesLoaded, asset.bytesTotal ); 
+			asset.dispatchEvent(progressEvent)
+			
+			var job:Job = asset.job;
+			progressEvent = new ProgressEvent( ProgressEvent.PROGRESS, true, false, job.bytesLoaded, job.bytesTotal ); 
+			job.dispatchEvent(progressEvent);
+			
+			progressEvent = new ProgressEvent( ProgressEvent.PROGRESS, true, false, bytesLoaded, bytesTotal ); 
+			dispatchEvent(progressEvent)
+		}
+		
+		/**
+		 *	Handles IOErrors for all loaders
+		 *	@private
+		 *	@param	event	 The IOErrorEvent
+		 */
+		private function onIOError( event:IOErrorEvent ) : void
+		{
+			var asset:Asset = assetOf(event.target);
+			trace("IOError:", asset.url);
+			// If you want to capture this you can uncomment this but debug errors are thrown unless you handle everyone.
+			//asset.dispatchEvent( event );
+			remove(asset);
+			removeLoader(event.target);
+		}
+	}
+}
+
+import framework.net.*;
+import flash.display.Loader;
+import flash.net.URLLoader;
+import flash.events.EventDispatcher;
+/**
+ *  URLLoaderExtended adds a referance to the Asset that it is loading within it.
+ */
+class URLLoaderExtended extends URLLoader {
+	public var asset:Asset;
+	public function URLLoaderExtended(){ super(); }
+}
+/**
+ *  LoaderExtended adds a referance to the Asset that it is loading within it.
+ */
+class LoaderExtended extends Loader {
+	public var asset:Asset;
+	public function LoaderExtended(){ super(); }
+}

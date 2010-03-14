@@ -1,0 +1,44 @@
+html {
+	width: 100%;
+	height: 100%;
+	background: #DDD;
+}
+#header {
+	height: 20%;
+	background: #333;
+}
+#content {
+	height: 55%;
+	background: #EEE;
+}
+.side-column {
+	width: 25%;
+	height: 100%;
+	background: #FFF;
+}
+#middle {
+	width: 50%;
+	height: 100%;
+	background: #EEE;
+}
+#footer {
+	height: 25%;
+	background: #555;
+}
+a {
+	color: #0000CC;
+	font-family: Arial;
+}
+h1 {
+	color: #FFFFFF;
+	font-family: Georgia;
+	font-weight: bold;
+	font-size:90px;
+}
+.image {
+	x: 10;
+	y: 10;
+	width: 120px;
+	height: 120px;
+	background: #FFF;
+}

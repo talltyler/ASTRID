@@ -1,0 +1,31 @@
+<h1>Users</h1>
+<div id="top">
+	<a href="#/users/search">Search</a>
+	<a href="#/users/add">Add New</a>
+</div>
+<div>	
+	<div style="height:20; width:700; background:#FF0">
+		<% for( column in users.data.0 ) %>
+			<div class="column" style="float:left; width:100; height:20; background:#FF0">
+				<% column %>
+			</div>
+		<% end %>
+		<div class="column" style="float:left; width:200; height:20; background:#FF0">
+			
+		</div>
+	</div>
+	<% for each( row in users.data ) %>
+		<div class="row" style="height:20; width:700; background:#FFA">
+			<% for each( cell in row ) %>
+				<div class="cell" style="height:20; width:100; background:#FFA; float:left;">
+					<% cell %>
+				</div>
+			<% end %>
+			<div class="cell" style="height:20; width:200; background:#FFA; float:left;">
+				<a href="#/users/show/<% row.id %>" style="float:left; width:40">Show</a>
+				<a href="#/users/edit/<% row.id %>" style="float:left; width:40">Edit</a>
+				<a href="#/users/destroy/<% row.id %>" style="float:left; width:40">Delete</a>
+			</div>
+		</div>
+	<% end %>
+</div>

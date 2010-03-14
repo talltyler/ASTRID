@@ -1,0 +1,15 @@
+<% for each(image in images.data) %>
+	<div class="image">
+		<% image.tag %>
+	</div>
+<% end %>
+<% if images.prevPage != images.currentPage %>
+	<div class="link">
+		<a href="#/site/index/?page=<% images.prevPage %>">Previous</a>
+	</div>
+<% end %>
+<% if images.nextPage != images.currentPage %>
+	<div class="link">
+		<a href="#/site/index/?page=<% images.nextPage %>">Next</a>
+	</div>
+<% end %>

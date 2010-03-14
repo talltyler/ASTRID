@@ -1,0 +1,17 @@
+<h1>Edit User</h1>
+<form action="#/users/edit" method="post" >
+	<p>
+		<strong>First Name:</strong>
+		<input type="text" name="first_name" value="{{user.first_name}}">
+	</p>
+	<p>
+		<strong>Last Name:</strong>
+		<input type="text" name="last_name" value="{{user.last_name}}">
+	</p>
+	<p>
+		<input type="submit" value="Save">
+		<a href="#/users">
+			Cancel
+		</a>
+	</p>
+</form>

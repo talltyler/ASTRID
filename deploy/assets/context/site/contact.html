@@ -1,0 +1,38 @@
+<div style="overflow:scroll; width:150; height:200; background-color:#FFFFFF;">
+	<form action="site/send_email" method="get">
+		<input type="text" name="first" restrict="A-Z,a-z" maxlength="12" placeholder="First Name" value="<% name %>">
+		<input type="text" name="last" placeholder="Last Name" min="5" max="12">
+		<input type="text" name="address" placeholder="Address" required="true">
+		<input type="email" name="email" value="<% undefined_value %>" placeholder="Email">
+		<input type="password" name="password" placeholder="Password">
+		<input type="tel" name="phone" placeholder="212-765-4321">
+		<input type="url" name="phone" placeholder="http://yourwebsite.com">
+		<input type="number" name="age" value="1234">
+		<input type="date" name="birthdate">
+		<input type="checkbox" name="accept_terms" checked="true">
+		<input type="radio" name="status" value="single" >
+		<input type="radio" name="status" value="married" >
+		<input type="hidden" name="system_id" value="1234567890">
+		
+		<!-- Still needs work -->
+		<!-- labels -->
+		<label><input type="radio" name="gender" value="male" >Male</label>
+		<label>Female<input type="radio" name="gender" value="female" ></label>
+		<!-- labels -->
+		<input type="file" name="image">
+		
+		<!-- TODO:
+			<input type="range" name="amount" >
+			<input type="color" name="color" >
+			<input type="time" name="time" >
+			<textarea name="time" >
+			<select>
+				<option>1</option>
+			</select>
+		-->
+		
+		<input type="submit" label="Submit"></input>
+		<input type="reset" label="Reset"></input>
+		
+	</form>
+</div>

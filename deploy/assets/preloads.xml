@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<!-- Preload these files before your application starts -->
+	<file name="basic-template" src="assets/templates/basic.html" />
+	<file name="simple-styles" src="assets/common/css/simple-styles.css" />
+	<file name="feed" src="assets/data/example.html" />
+	<file name="test" src="http://makeover.dailymakeover.com/lipstick" type="text" />
+	<file name="default-template" src="assets/templates/default.html" />
+</xml>

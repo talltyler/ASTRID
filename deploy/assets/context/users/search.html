@@ -1,0 +1,28 @@
+<h1>Search Users</h1>
+<div id="top">
+	<form action="#/users/search" method="post">
+		<p>
+			<input type="text" value="Submit">
+		</p>
+		<p>
+			<input type="submit" value="Submit">
+		</p>
+	</form>
+</div>
+<table>
+	{{column in $.columns}}
+	<th>
+		{{column}}
+	</th>
+	{{/column}}
+	
+	{{result in $.results}}
+	<tr>
+		{{columns in result}}
+		<td>
+			{{columns}}
+		</td>
+		{{/columns}}
+	</tr>
+	{{/result}}
+</table>
