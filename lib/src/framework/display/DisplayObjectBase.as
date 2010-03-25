@@ -39,12 +39,9 @@ package framework.display
 	 */
 	public class DisplayObjectBase extends Sprite
 	{
-	
 		public function DisplayObjectBase()
 		{
 			super();
 		}
-	
 	}
-
 }

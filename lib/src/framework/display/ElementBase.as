@@ -245,7 +245,10 @@ package framework.display
 			var border:Object = _computedStyles.border;
 			if( border != null ) {
 				// This only supports solid borders for now
-				graphics.beginFill( border.color||0, border.alpha||1 );				
+				if( border.color == null) {
+					border.alpha = 0;
+				}
+				graphics.beginFill( border.color||0, border.alpha );				
 				if( border.top && border.right && border.bottom && border.left ) {
 					drawShape( 0, 0, _computedStyles.width, _computedStyles.height );
 				}
@@ -292,6 +295,7 @@ package framework.display
 			if( _computedStyles.background.color == null ) {
 				_computedStyles.background.color = uint(Math.random()*0xFFFFFF)
 			}
+			
 			graphics.beginFill( _computedStyles.background.color, _computedStyles.background.alpha||1 );
 		}
 		

@@ -80,7 +80,7 @@ package framework.view.html
 		{
 			super();
 			
-			graphics.beginFill(0xDDDDDD, 1);
+			graphics.beginFill(0xDDDDDD, 0.01);
 			graphics.drawRect(0,0,width,height);
 			graphics.endFill();
 			
@@ -95,6 +95,7 @@ package framework.view.html
 			history = new History( document );
 			
 			var frame:Frame = new Frame( document, url, name, features );
+			frame.graphics.clear();
 			frames.push( frame );
 			
 			css = new CSS( navigator.controller );

@@ -87,7 +87,6 @@ package framework.components
 		
 		public function updateScroller(ev:Event=null) : void 
 		{
-			trace("updateScroller")
 			if(windowRect == null)
 				windowRect = new Rectangle(baseStyle.x, baseStyle.y, baseStyle.width, baseStyle.height);
 

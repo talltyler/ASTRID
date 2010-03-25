@@ -30,8 +30,9 @@ package framework.view.html
 	import flash.external.ExternalInterface;
 	import framework.cache.Cache;
 	import framework.net.Assets;
+	import framework.display.Base;
 	
-	public class Document extends Element
+	public class Document extends Base
 	{
 		public var anchors:Array = [ {name:"name", offsetLeft:0, offsetParent:"parent", offsetTop:0, x:0, y:0} ];
 		public var cookie:Object = {};
@@ -104,8 +105,13 @@ package framework.view.html
 			parser = new Parser( window.navigator.tags );
 			cache = new Cache( this );
 			assets = new Assets( cache );
-			
-			super( this, this, null);
+			//super( this, this, null);
+			//style.background.alpha = 0.01;
+			//style.width = "100%";
+			//style.height = "100%";
+			// draw( style );
+			super()
+			graphics.clear();
 		}
 		
 		public function close():void

@@ -110,6 +110,7 @@ package framework.data.adapters
 		public function parse( source:String ):void
 		{
 			var csv:CSV = new CSV();
+			csv.recordsetDelimiter = "\n";
 			csv.data = source;
 			csv.decode();
 			var className:String = ClassUtils.className( model );
@@ -483,7 +484,7 @@ class CSV extends URLLoader
 	{
 		var count  : int = 0
 		var result : Array = new Array ()		 
-		data = data.toString().split( recordsetDelimiter );
+		data = data.toString().split( RecordsetDelimiter );
 		for(  var i : int = 0; i < data.length; i++ )
 		{
 			if( !Boolean( count % 2 ) )

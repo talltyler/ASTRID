@@ -60,17 +60,19 @@ package framework.view.html
 		public function start( target:Sprite ):void
 		{
 			this.target = target;
-
+			this.target.name = "NAVIGATOR";
 			/* // Any object that will be added and deleted many times must go through the pool
 			pools.Element = new Pool(true);
 			*/
 			
 			main = new Base();
 			main.name = NAVIGATOR_MAIN;
+			main.graphics.clear();
 			target.addChild( main );
 			
 			top = new Base();
 			top.name = NAVIGATOR_TOP;
+			top.graphics.clear();
 			target.addChild(top);
 		}
 	}

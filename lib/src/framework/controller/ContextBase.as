@@ -163,7 +163,12 @@ package framework.controller
 				//if( container == null && controller.currentView != null && controller.currentView.parent ){
 				//	controller.currentView.parent.removeChild( controller.currentView );
 				//}
-				if( _container.parent.name == "ROOT" ){ 
+				
+				//if( controller.currentView && controller.currentView.parent ) {
+				//	controller.currentView.parent.removeChild( controller.currentView );
+				//}
+				
+				if( container == null && _container.parent.name == "ROOT" ){ 
 					view = controller.currentView = new renderer( controller, 
 												_container.stage.stageWidth, _container.stage.stageHeight );
 				}else{

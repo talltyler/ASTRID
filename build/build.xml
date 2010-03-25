@@ -7,7 +7,7 @@
 		<exec executable="${flex.mxmlc}" failonerror="true">
 			<arg line="-output '${deploy.dir}/Main.swf'"/>
 			<arg line="-target-player=10.0.0"/>
-			<arg line="${src.dir}/Main.as"/>
+			<arg line="${src.dir}/DocumentClass.as"/>
 		</exec>
 	</target>
 </project>

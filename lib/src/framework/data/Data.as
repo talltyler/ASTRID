@@ -102,9 +102,16 @@ package framework.data
 			}
 		}
 		
+		/**
+		 * Load in data in the models native data type discribed by it's adapter and parse it into model objects.
+		 * @param name String 
+		 * @param source String 
+		 */
 		public function parse( name:String, source:String ):void
 		{
-			_adaptersByName[ name ].parse( source );
+			if( _adaptersByName[ name ] ) {
+				_adaptersByName[ name ].parse( source );
+			}
 		}
 		
 		/**

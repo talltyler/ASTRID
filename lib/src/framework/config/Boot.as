@@ -70,7 +70,8 @@ package framework.config
 		public var log:Log;
 		
 		private var _preloader:PreloaderBase;
-	
+		private var _ready:Boolean;
+		
 		public function Boot()
 		{
 			super();
@@ -118,16 +119,13 @@ package framework.config
 
 			// Look for preload xml files defined in flashVars
 			if( parameters.preloads != null ) {
+				trace(1)
 				var preloads:AssetsGroup = new AssetsGroup( assets ); // AssetsGroup loads a list of files defined in XML
 				preloads.addEventListener( Event.COMPLETE, start );
 				preloads.add( parameters.preloads );  // parameters.preloads
 				preloads.load();
 			}else{
-				var job:Job = assets.load();
-				job.addEventListener( Event.COMPLETE, start );
-				if( job.length == 0 ) {
-					start();
-				}
+				_ready = true;
 			}
 			if( _preloader != null ) {
 				_preloader.add( assets );
@@ -174,6 +172,13 @@ package framework.config
 			}else{
 				configure();
 				setup();
+				if( _ready ) {
+					var job:Job = assets.load();
+					job.addEventListener( Event.COMPLETE, start );
+					if( job.length == 0 ) {
+						start();
+					}
+				}
 			}
 		}
 	
@@ -185,6 +190,13 @@ package framework.config
 			removeEventListener( Event.ADDED_TO_STAGE, setup );
 			configure();
 			setup();
+			if( _ready ) {
+				var job:Job = assets.load();
+				job.addEventListener( Event.COMPLETE, start );
+				if( job.length == 0 ) {
+					start();
+				}
+			}
 			if( _preloader != null ) {
 				_preloader.add( assets );
 			}
