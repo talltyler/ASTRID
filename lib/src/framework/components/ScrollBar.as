@@ -87,7 +87,6 @@ package framework.components
 		
 		public function updateScroller(ev:Event=null) : void 
 		{
-			trace("updateScroller")
 			if(windowRect == null)
 				windowRect = new Rectangle(baseStyle.x, baseStyle.y, baseStyle.width, baseStyle.height);
 
@@ -130,6 +129,11 @@ package framework.components
 				style = scrollBottomStyle;
 				
 				// style.styleMovie = Application.app.assets.files["scroll"].content;
+			}
+			
+			if(yFlag == 1 && xFlag == 1)	// Y
+			{
+				contentHeight += style.size;
 			}
 			
 			var scrollSize:Number;

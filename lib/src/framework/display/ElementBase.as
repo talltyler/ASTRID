@@ -137,6 +137,11 @@ package framework.display
 			return _rawChildren;
 		}
 		
+		public function get scrollbar():ScrollBar
+		{
+			return _scrollbar;
+		}
+		
 		public function ElementBase( styles:Object=null, events:Object=null )
 		{
 			super();
@@ -245,7 +250,13 @@ package framework.display
 			var border:Object = _computedStyles.border;
 			if( border != null ) {
 				// This only supports solid borders for now
-				graphics.beginFill( border.color||0, border.alpha||1 );				
+				if( border.color == null) {
+					border.alpha = 0;
+				}
+				if( border.color != null && border.color != undefined && border.alpha == undefined ) {
+					border.alpha = 1;
+				}
+				graphics.beginFill( border.color||0, border.alpha );				
 				if( border.top && border.right && border.bottom && border.left ) {
 					drawShape( 0, 0, _computedStyles.width, _computedStyles.height );
 				}
@@ -292,6 +303,7 @@ package framework.display
 			if( _computedStyles.background.color == null ) {
 				_computedStyles.background.color = uint(Math.random()*0xFFFFFF)
 			}
+			
 			graphics.beginFill( _computedStyles.background.color, _computedStyles.background.alpha||1 );
 		}
 		
@@ -395,7 +407,9 @@ package framework.display
 					_scrollbar = new ScrollBar( this, rawChildren, _computedStyles, _computedStyles.overflow );
 					appendChild( _scrollbar );
 				}
-				this.stage.addEventListener(MouseEvent.CLICK, _scrollbar.updateScroller);
+				if( stage && _scrollbar ) {
+					stage.addEventListener(MouseEvent.CLICK, _scrollbar.updateScroller);
+				}
 			}
 		}
 		

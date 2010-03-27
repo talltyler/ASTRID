@@ -36,6 +36,9 @@ package framework.view.html
 		{
 			super( document );
 			style.width = style.height = "100%";
+
+			// style.background.alpha = 0;
+			// draw( style );
 			
 			_zIndex = zIndex;
 			name = "_layer_" + zIndex;

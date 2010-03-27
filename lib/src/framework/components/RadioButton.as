@@ -1,13 +1,13 @@
 package framework.components
 {
 	import flash.events.Event;
-	import flash.text.TextField;
-	import flash.filters.BitmapFilter;
-	import flash.text.TextFormat;
-	import flash.filters.DropShadowFilter;
 	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
 	import flash.events.KeyboardEvent;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.filters.BitmapFilter;
+	import flash.filters.GlowFilter;
 	
 	import framework.display.Base;
 	import framework.display.Position;
@@ -76,7 +76,7 @@ package framework.components
 			mouseChildren = false;
 			buttonMode = true;
 			
-			_filter = new DropShadowFilter(2,45,computedStyles.focusColor||0x00FF00,0.5);
+			_filter = new GlowFilter(computedStyles.focusColor||0x1283FF,0.8,4,4);
 
 			addEventListener(FocusEvent.FOCUS_IN, onFocus);
 			addEventListener(FocusEvent.FOCUS_OUT, onBlur);
@@ -93,7 +93,7 @@ package framework.components
 			style.height = 12;
 			style.margin = { top:5, right:0, bottom:0, left:5 };
 			style.border = { top:1, right:1, bottom:1, left:1 };
-			style.border.color = style.border.color||0;
+			style.border.color = style.border.color||0x777777;
 			style.border.alpha = 0.4;
 			style.background.type = "solid";
 			style.background.color = 0xFFFFFF; 

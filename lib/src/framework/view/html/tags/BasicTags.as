@@ -143,7 +143,7 @@ package framework.view.html.tags
 				
 				var element:Element = document.getElementById( target );
 				if( element == null ) {
-					element = document;
+					// element = document; // document isn't an element anymore
 				}
 				if( document.cache.assets[ href ] == null ){
 					var asset:Asset = document.assets.add( href );
@@ -393,6 +393,7 @@ package framework.view.html.tags
 		{
 			var obj:Object = element( document, target, xml, BLOCK );
 			obj.element.style.width = obj.element.style.height = "100%";
+			obj.element.style.background.alpha = 0;
 			return obj;
 		}
 

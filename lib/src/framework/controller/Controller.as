@@ -40,6 +40,7 @@ package framework.controller
 	import framework.net.Assets;
 	import framework.net.Asset;
 	import framework.view.RendererBase;
+	import framework.data.UndoRedo;
 	
 	[Event(name='contextNotFound', type='flash.events.Event')]
 	[Event(name='methodNotFound', type='flash.events.Event')]
@@ -303,11 +304,11 @@ package framework.controller
 			currentMethod = chosenMethod;
 			currentParams.method = currentMethod;
 			
-			if( currentParams.content != null ) {
+			if( currentParams.content != null && contexts[currentContext] && contexts[currentContext][currentMethod] is Function ) {
 				currentViewData = {data:currentParams.content};
 				contexts[currentContext][currentMethod]( currentParams );	// call method on context
 				started = true;
-			}else{
+			}else if( currentParams.content == null ) {
 				currentViewData = _assets.add( viewBase + currentContext + SLASH + currentMethod + viewExtension );
 				currentViewData.addEventListener( Event.COMPLETE, onViewLoaded );
 				currentViewData.addEventListener( IOErrorEvent.IO_ERROR, onViewNoFound );
@@ -316,7 +317,7 @@ package framework.controller
 			
 			currentRoute = chosenRoute;
 			
-			trace( "redirect", path, contextName, currentMethod, currentParams ); 
+			// trace( "redirect", path, contextName, currentMethod, currentParams ); 
 
 		}
 		

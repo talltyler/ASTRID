@@ -114,25 +114,7 @@ public class FormTags
 		// Log.info("option", xml.toXMLString())
 	}
 	
-	//&lt;textarea&gt;	Specifies a text area	 
-	//http://www.w3schools.com/tags/html5_textarea.asp
-	public function textarea( document:Document, target:Element, xml:XML ):Object
-	{
-		//TODO: Needs lots of work, scroll bars, maybe use other text, need to figure out how to hook into forms
-		/*
-		var obj:Object = element( document, target, xml, BLOCK );
-		var textarea:TextField = new TextField();
-		textarea.border = true;
-		textarea.background = true;
-		textarea.type = "input";
-		if( xml.@value.toString() ) textarea.htmlText = xml.@value.toString();
-		if( xml.@col.toString() ) textarea.width = int(xml.@col.toString())*9; // we are supposing the with of a character is 9px
-		else textarea.width = 180;
-		obj.element.addChild( textarea )
-		return obj;
-		*/
-		return {};
-	}
+	
 	
 	//&lt;progress&gt;	Specifies progress of a task of any kind	NEW
 	//http://www.w3schools.com/tags/html5_progress.asp
@@ -375,6 +357,62 @@ public class FormTags
 		}
 		if( xml.@max.toString() ) {
 			element.max = parseInt( xml.@max.toString() );
+		}
+		
+		element.form = form;
+		document.selectedForm = form;
+		form.elements.push( element );
+		_currentElement = element;
+		return { element:element };
+	}
+	
+	//&lt;textarea&gt;	Specifies a text area	 
+	//http://www.w3schools.com/tags/html5_textarea.asp
+	public function textarea( document:Document, target:Element, xml:XML ):Object
+	{
+		var form:Form = document.forms[ document.forms.length-1 ];
+		var element:TextArea = new TextArea( document, target, xml );
+		target.addChild( element );
+		
+		element.value = xml.@value.toString();
+		element.name = xml.@name.toString();
+		element.placeholder = xml.@placeholder.toString();
+		
+		if( xml.@password.toString() == "true" ) {
+			element.field.displayAsPassword = true;
+		}
+		if( xml.@maxlength.toString() ) {
+			element.field.maxChars = parseInt( xml.@maxlength.toString() );
+		}
+		if( xml.@restrict.toString() ) {
+			element.field.restrict = xml.@restrict.toString();
+		}
+		if( xml.@pattern.toString() ) {
+			element.pattern = xml.@pattern.toString();
+		}
+		if( xml.@required.toString() == "true" ) {
+			element.required = true;
+		}
+		if( xml.@min.toString() ) {
+			element.min = parseInt( xml.@min.toString() );
+		}
+		if( xml.@max.toString() ) {
+			element.max = parseInt( xml.@max.toString() );
+		}
+		if( xml.@cols.toString() ) {
+			element.cols = parseFloat( xml.@cols.toString() );
+		}
+		if( xml.@rows.toString() ) {
+			element.rows = parseFloat( xml.@rows.toString() );
+		}
+		if( xml.@disabled.toString() == "true" ) {
+			element.disabled = true;
+		}
+		if( xml.@readonly.toString() == "true" ) {
+			element.readonly = true;
+		}
+		if( xml.@wrap.toString() ) {
+			element.wrap = xml.@wrap.toString();
 		}
 		
 		element.form = form;

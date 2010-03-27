@@ -57,7 +57,7 @@ package framework.controller
 		protected var layout:Class;
 		protected var renderer:Class;
 		protected var assets:Assets;
-		protected var view:RendererBase;
+		protected var view:*;
 		
 		private var _name:String;
 		private var _container:Sprite;
@@ -163,7 +163,12 @@ package framework.controller
 				//if( container == null && controller.currentView != null && controller.currentView.parent ){
 				//	controller.currentView.parent.removeChild( controller.currentView );
 				//}
-				if( _container.parent.name == "ROOT" ){ 
+				
+				//if( controller.currentView && controller.currentView.parent ) {
+				//	controller.currentView.parent.removeChild( controller.currentView );
+				//}
+				
+				if( container == null && _container.parent.name == "ROOT" ){ 
 					view = controller.currentView = new renderer( controller, 
 												_container.stage.stageWidth, _container.stage.stageHeight );
 				}else{
