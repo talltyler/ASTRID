@@ -19,10 +19,10 @@ package
 			controller.add( SiteContext, GameContext ); 
 		
 			// Routes map the places you can navigate to within your application.
-			routes.add( "", { context:"site", method:"index" } ); // root route
+			routes.add( "", { context:"site", method:"index", id:1241 } ); // root route
 			routes.add( "game/game",{context:"game", method:"game", content:""});
 			routes.add( ":context/:method/:id" ); // default routes
-			
+
 			tasks.add( LoadingTasks );
 		}
 
