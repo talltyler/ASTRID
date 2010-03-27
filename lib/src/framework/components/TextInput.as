@@ -1,12 +1,13 @@
 package framework.components
 {
 import flash.events.Event;
-import flash.text.TextField;
-import flash.filters.BitmapFilter;
-import flash.text.TextFormat;
-import flash.filters.DropShadowFilter;
 import flash.events.FocusEvent;
 import flash.events.MouseEvent;
+import flash.events.KeyboardEvent;
+import flash.text.TextField;
+import flash.text.TextFormat;
+import flash.filters.BitmapFilter;
+import flash.filters.GlowFilter;
 
 import framework.display.Base;
 import framework.display.Position;
@@ -14,7 +15,6 @@ import framework.display.ElementBase;
 import framework.view.html.Document;
 import framework.view.html.Element;
 import framework.view.html.Form;
-import flash.events.KeyboardEvent;
 
 public class TextInput extends ElementBase
 {	
@@ -174,7 +174,7 @@ public class TextInput extends ElementBase
 			textField.alpha = 0.5;
 		}
 		
-		_filter = new DropShadowFilter(2,45,computedStyles.focusColor||0x00FF00,0.5);
+		_filter = new GlowFilter(computedStyles.focusColor||0x1283FF,0.8,4,4);
 		
 		textField.addEventListener(FocusEvent.FOCUS_IN, onFocus);
 		textField.addEventListener(FocusEvent.FOCUS_OUT, onBlur);
@@ -202,9 +202,9 @@ public class TextInput extends ElementBase
 		
 		style.border = { top:1, right:1, bottom:1, left:1 };
 		if( _errors.length == 0 ) {
-			style.border.color = style.border.color||0x333333;
+			style.border.color = style.border.color||0x777777;
 		}else{
-			style.border.color = style.border.color||0xCC0000;
+			style.border.color = style.border.error||0xCC0000;
 		}
 		style.background.type = "solid"
 		style.background.color = 0xFFFFFF; 
@@ -266,7 +266,7 @@ public class TextInput extends ElementBase
 	private function checkValue():void
 	{
 		if( _pattern ) {
-			var regExp:RegExp = new RegExp( _pattern, "gim" );
+			var regExp:RegExp = new RegExp( _pattern, "gm" );
 			var result:Array = textField.text.match( regExp );
 			if( result.length != 1 ) {
 				_errors.push( { element:this, id:10, message:name + " does not match format." } );

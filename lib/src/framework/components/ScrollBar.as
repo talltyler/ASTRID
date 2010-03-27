@@ -131,6 +131,11 @@ package framework.components
 				// style.styleMovie = Application.app.assets.files["scroll"].content;
 			}
 			
+			if(yFlag == 1 && xFlag == 1)	// Y
+			{
+				contentHeight += style.size;
+			}
+			
 			var scrollSize:Number;
 			if(yFlag == 1)	// Y
 			{ 

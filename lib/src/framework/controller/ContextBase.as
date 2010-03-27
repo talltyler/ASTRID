@@ -57,7 +57,7 @@ package framework.controller
 		protected var layout:Class;
 		protected var renderer:Class;
 		protected var assets:Assets;
-		protected var view:RendererBase;
+		protected var view:*;
 		
 		private var _name:String;
 		private var _container:Sprite;

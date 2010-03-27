@@ -101,7 +101,11 @@ package framework.view.html
 			css = new CSS( navigator.controller );
 			css.parseCSS( styles );
 		}
-		
+
+		public function render( value:String ):void
+		{
+			frames[0].getLayer(0).innerHTML = value;
+		}
 		
 		/**
 		*	taken out because the interface doesn't seem right

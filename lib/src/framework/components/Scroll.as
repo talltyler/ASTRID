@@ -175,7 +175,7 @@ package framework.components
 				var Bar:Class = style.styleMovie.loaderInfo.applicationDomain.getDefinition(skin) as Class;
 				bar = new Bar();
 								
-				barMinSize = bar.top.height + bar.middle.height + bar.bottom.height; 
+				//barMinSize = bar.top.height + bar.middle.height + bar.bottom.height; 
 				if(size < barMinSize)
 					size = barMinSize;
 

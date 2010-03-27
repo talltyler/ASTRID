@@ -29,7 +29,9 @@ package framework.config
 {
 	import flash.events.Event;
 	import flash.events.ErrorEvent;
-
+	import flash.external.ExternalInterface;
+	import flash.system.Security;
+	
 	import framework.debug.Log;
 	import framework.display.DisplayObjectBase;
 	import framework.cache.Cache;
@@ -42,7 +44,6 @@ package framework.config
 	import framework.net.Asset;
 	import framework.net.AssetsGroup;
 	import framework.net.Job;
-	import flash.external.ExternalInterface;
 	
 	// TODO:
 	// cookies/ shared objects model adapter
@@ -119,10 +120,9 @@ package framework.config
 
 			// Look for preload xml files defined in flashVars
 			if( parameters.preloads != null ) {
-				trace(1)
 				var preloads:AssetsGroup = new AssetsGroup( assets ); // AssetsGroup loads a list of files defined in XML
 				preloads.addEventListener( Event.COMPLETE, start );
-				preloads.add( parameters.preloads );  // parameters.preloads
+				preloads.add( parameters.preloads );
 				preloads.load();
 			}else{
 				_ready = true;
