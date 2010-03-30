@@ -119,6 +119,8 @@ package framework.view.html.tags
 						redirect( document, xml.@href.toString(), xml.@target.toString(), xml.@rel.toString() ) 
 					}
 				);
+				// we need to have a way to delete these before they are saved
+				// document.anchors.push( { name:xml.@name.toString()||obj.element.name, href:xml.@href.toString(), target:xml.@target.toString() } ); // offsetLeft:0, offsetParent:"parent", offsetTop:0, x:0, y:0
 			}
 			obj.element.buttonMode = true;
 			return obj;

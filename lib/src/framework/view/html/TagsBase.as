@@ -147,7 +147,7 @@ package framework.view.html
 			tags.tr 		= basic.tr;
 			tags.ul 		= basic.ul;
 			// tags["var"]		= basic["var"];
-			//tags.video 		= VideoTag.tag;
+			// tags.video 		= VideoTag.tag;
 			
 		}
 	}

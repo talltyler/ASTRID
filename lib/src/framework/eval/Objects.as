@@ -526,7 +526,7 @@ public class Objects
 				obj = data;
 				for each( var part:String in parts ) {
 					count++;
-					var partName:String = part.split("(")[0];
+					var partName:String = part.split("(")[0]; // 
 					// Log.debug(obj, partName, obj.hasOwnProperty( partName ))
 					if( data[partName] is Function ) { // calling methods from within data object, you will have to place this
 						obj = resolveMethod( obj, partName, part, data );
@@ -561,6 +561,8 @@ public class Objects
 	 */
 	private function resolveMethod( obj:*, method:String, whole:String, data:Object ):*
 	{
+		// fix these issue with something like this regex
+		// /(,)(?=(?:[^']|'[^']*')*$)/igm; 
 		var args:Array = whole.split("(")[1].split(")").join(EMPTY).split(",");
 		
 		// This argument spliting could be smarter, does not currentlt support string arguments that have commas.

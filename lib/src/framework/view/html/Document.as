@@ -27,20 +27,25 @@
  */
 package framework.view.html 
 {
+	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
 	import framework.cache.Cache;
 	import framework.net.Assets;
 	import framework.display.Base;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.DisplayObject;
+	import framework.display.ElementBase;
+	
 	
 	public class Document extends Base
 	{
-		public var anchors:Array = [ {name:"name", offsetLeft:0, offsetParent:"parent", offsetTop:0, x:0, y:0} ];
+		public var anchors:Array = []; // {name:"name", offsetLeft:0, offsetParent:"parent", offsetTop:0, x:0, y:0}
 		public var cookie:Object = {};
-		public var images:Array = [{border:false, complete:true, width:0, height:0, lowsrc:"", name:"", src:""}];
-		public var embeds:Array = [{ name:"", width:0, height:0, hidden:false, pluginspage:"", src:"", type:"", units:"" }];
+		public var images:Array = []; // {border:false, complete:true, width:0, height:0, lowsrc:"", name:"", src:""}
+		public var embeds:Array = []; // { name:"", width:0, height:0, hidden:false, pluginspage:"", src:"", type:"", units:"" }
 		public var forms:Array = [];
 		public var layers:Array = [];
-		public var links:Array = [{hash:"", host:"", hostname:"", href:"", innerText:"", offsetLeft:0, offsetParent:0, offsetTop:0, pathname:"", port:0, protocol:"", search:"", target:"", text:"", x:0, y:0 }];
+		public var links:Array = []; // {hash:"", host:"", hostname:"", href:"", innerText:"", offsetLeft:0, offsetParent:0, offsetTop:0, pathname:"", port:0, protocol:"", search:"", target:"", text:"", x:0, y:0 }
 		public var styleSheets:Array = []
 		public var lastModified:Date;
 		public var parser:Parser;
@@ -105,12 +110,7 @@ package framework.view.html
 			parser = new Parser( window.navigator.tags );
 			cache = new Cache( this );
 			assets = new Assets( cache );
-			//super( this, this, null);
-			//style.background.alpha = 0.01;
-			//style.width = "100%";
-			//style.height = "100%";
-			// draw( style );
-			super()
+			super();
 			graphics.clear();
 		}
 		
@@ -121,19 +121,88 @@ package framework.view.html
 		
 		public function getElementById( id:String ):Element
 		{ 
-			var result:Element
-			return result
+			var result:Element;
+			function loop( target:Sprite ) : void {
+				var length:int = target.numChildren;
+				for(var i:uint=0; i < length; i++) {
+					var child:* = target.getChildAt(i);
+					if( child is DisplayObjectContainer ) {
+						var check:DisplayObject = child.getChildByName( id );
+						if( check != null ) {
+							result = check as Element;
+			      		}else{
+							loop( child );
+						}
+					}
+			    }
+			}
+
+			loop( window );
+
+			return result;
 		}
 		
-		public function getElementsByClassName( id:String ):Element
+		public function getElementsByClassName( name:String ):Array
 		{ 
-			var result:Element
-			return result
+			var results:Array = new Array();
+
+			function loop( target:DisplayObjectContainer ) : void {
+				if( target is ElementBase )
+					target = (target as ElementBase).rawChildren;
+				
+				for( var i:uint=0; i < target.numChildren; i++) {
+					var child:* = target.getChildAt(i);
+					if( child is Node ){
+						var classes:String = ( child as Node ).innerXML.@["class"].toString();
+						if( classes ) {
+							for each( var clazz:String in classes.split(" ") ) {
+								if( clazz == name ) {
+									results.push( child )
+								}
+							}
+						}
+					}
+			      	if( child is DisplayObjectContainer ) {
+						loop( child );
+					}
+				}
+			}
+			
+			loop( window );
+			
+			return results;
 		}
 		
-		public function getElementsByTagName( name:String ):void
+		
+		public function getElementsByTagName( name:String ):Array
 		{
+			var results:Array = new Array();
+
+			function loop( target:DisplayObjectContainer ) : void {
+				if( target is ElementBase )
+					target = (target as ElementBase).rawChildren;
+				
+				for( var i:uint=0; i < target.numChildren; i++) {
+					var child:* = target.getChildAt(i);
+					if( child is Node ){
+						var classes:String = ( child as Node ).innerXML.localName();
+						if( classes ) {
+							for each( var clazz:String in classes.split(" ") ) {
+								if( clazz == name ) {
+									results.push( child );
+								}
+							}
+						}
+					}
+			      	if( child is DisplayObjectContainer ) {
+						loop( child );
+					}
+				}
+			}
 			
+			loop( window );
+			
+			return results;
 		}
 		
 		public function hasFeature( feature:String, domVersion:String=null ) : Boolean
@@ -160,7 +229,7 @@ package framework.view.html
 		
 		public function writeln( content:String ):void
 		{ 
-			write( content )
+			write( content );
 		}
 	}
 }

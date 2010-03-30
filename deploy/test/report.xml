@@ -6,7 +6,7 @@
       <dep id="RegExp" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Window.as" mod="1266769482000" size="3273" optimizedsize="3190">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Window.as" mod="1269708011000" size="3346" optimizedsize="3261">
       <def id="framework.view.html:Window" />
       <pre id="framework.display:Base" />
       <dep id="flash.external:ExternalInterface" />
@@ -22,13 +22,12 @@
       <dep id="framework.view.html:Document" />
       <dep id="framework.view.html:Navigator" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/ScrollBar.as" mod="1266817654000" size="3338" optimizedsize="3228">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/ScrollBar.as" mod="1269708011000" size="3355" optimizedsize="3243">
       <def id="framework.components:ScrollBar" />
       <pre id="flash.display:Sprite" />
       <dep id="flash.geom:Rectangle" />
       <dep id="flash.display:DisplayObjectContainer" />
       <dep id="flash.events:Event" />
-      <dep id="trace" />
       <dep id="AS3" />
       <dep id="framework.components:Scroll" />
       <dep id="Math" />
@@ -40,7 +39,7 @@
       <dep id="flash.events:Event" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/HTMLRenderer.as" mod="1265244112000" size="1066" optimizedsize="1025">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/HTMLRenderer.as" mod="1265244112000" size="1071" optimizedsize="1030">
       <def id="framework.view:HTMLRenderer" />
       <pre id="framework.view:RendererBase" />
       <dep id="framework.view.html:Window" />
@@ -58,7 +57,7 @@
       <dep id="framework.net:Assets" />
       <dep id="framework.utils:ClassUtils" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/tags/BasicTags.as" mod="1266946749000" size="7056" optimizedsize="7046">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/tags/BasicTags.as" mod="1269708011000" size="7090" optimizedsize="7081">
       <def id="framework.view.html.tags:BasicTags" />
       <pre id="Object" />
       <dep id="flash.events:MouseEvent" />
@@ -81,11 +80,10 @@
       <dep id="framework.view.html:Element" />
       <dep id="framework.view.html:Navigator" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/controller/ContextBase.as" mod="1266339653000" size="2481" optimizedsize="2377">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/controller/ContextBase.as" mod="1269708011000" size="2464" optimizedsize="2355">
       <def id="framework.controller:ContextBase" />
       <pre id="flash.events:EventDispatcher" />
       <dep id="framework.events:ListenerManager" />
-      <dep id="framework.view:RendererBase" />
       <dep id="framework.display:Base" />
       <dep id="flash.display:Sprite" />
       <dep id="framework.controller:Controller" />
@@ -122,7 +120,7 @@
       <dep id="framework.cache:Cache" />
       <dep id="framework.utils:ClassUtils" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/display/ElementBase.as" mod="1266774215000" size="7005" optimizedsize="6719">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/display/ElementBase.as" mod="1269708011000" size="7131" optimizedsize="6839">
       <def id="framework.display:ElementBase" />
       <pre id="framework.display:Base" />
       <dep id="flash.geom:Matrix" />
@@ -173,7 +171,7 @@
       <dep id="AS3" />
       <dep id="framework.view.html:Document" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/src/Main.as" mod="1268153307000" size="954" optimizedsize="903">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/src/Main.as" mod="1268922300000" size="962" optimizedsize="911">
       <def id="Main" />
       <pre id="framework.config:Boot" />
       <dep id="framework.tasks:LoadingTasks" />
@@ -189,14 +187,19 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/eval/Objects.as" mod="1265839866000" size="5610" optimizedsize="5370">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/data/UndoRedo.as" mod="1268237160000" size="554" optimizedsize="545">
+      <def id="framework.data:UndoRedo" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/eval/Objects.as" mod="1268251824000" size="5674" optimizedsize="5432">
       <def id="framework.eval:Objects" />
       <pre id="Object" />
       <dep id="RegExp" />
       <dep id="AS3" />
       <dep id="framework.utils:StringUtils" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/display/DisplayObjectBase.as" mod="1265243861000" size="348" optimizedsize="332">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/display/DisplayObjectBase.as" mod="1269708011000" size="348" optimizedsize="332">
       <def id="framework.display:DisplayObjectBase" />
       <pre id="flash.display:Sprite" />
       <dep id="AS3" />
@@ -213,7 +216,7 @@
       <dep id="framework.data:ModelUtils" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/net/Assets.as" mod="1266337689000" size="4990" optimizedsize="4709">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/net/Assets.as" mod="1269708011000" size="5126" optimizedsize="4832">
       <def id="framework.net:Assets" />
       <pre id="flash.net:URLLoader" />
       <pre id="flash.events:EventDispatcher" />
@@ -232,6 +235,7 @@
       <dep id="flash.events:IOErrorEvent" />
       <dep id="flash.display:LoaderInfo" />
       <dep id="flash.external:ExternalInterface" />
+      <dep id="flash.system:Security" />
       <dep id="flash.utils:getTimer" />
       <dep id="flash.events:ProgressEvent" />
       <dep id="flash.system:ApplicationDomain" />
@@ -268,7 +272,7 @@
       <dep id="framework.utils:TypeUtils" />
       <dep id="framework.view.html:Element" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/MiniHTMLRenderer.as" mod="1265516153000" size="797" optimizedsize="767">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/MiniHTMLRenderer.as" mod="1265516153000" size="802" optimizedsize="772">
       <def id="framework.view:MiniHTMLRenderer" />
       <pre id="framework.view:RendererBase" />
       <dep id="framework.view.miniHTML:MiniHTML" />
@@ -296,18 +300,23 @@
       <dep id="flash.utils:ByteArray" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Document.as" mod="1266420591000" size="2061" optimizedsize="2031">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Document.as" mod="1269890088000" size="2805" optimizedsize="2719">
       <def id="framework.view.html:Document" />
-      <pre id="framework.view.html:Element" />
+      <pre id="framework.display:Base" />
+      <dep id="framework.view.html:Node" />
+      <dep id="Date" />
+      <dep id="framework.view.html:Parser" />
+      <dep id="AS3" />
+      <dep id="framework.cache:Cache" />
       <dep id="flash.external:ExternalInterface" />
       <dep id="framework.view.html:Form" />
       <dep id="framework.view.html:Window" />
-      <dep id="Date" />
-      <dep id="framework.view.html:Node" />
-      <dep id="AS3" />
-      <dep id="framework.view.html:Parser" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="framework.display:ElementBase" />
+      <dep id="flash.display:DisplayObjectContainer" />
+      <dep id="flash.display:Sprite" />
+      <dep id="framework.view.html:Element" />
       <dep id="framework.net:Assets" />
-      <dep id="framework.cache:Cache" />
     </script>
     <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Node.as" mod="1266345368000" size="2378" optimizedsize="2296">
       <def id="framework.view.html:Node" />
@@ -334,13 +343,13 @@
       <dep id="framework.view.html:Element" />
       <dep id="framework.view.html:Document" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/CheckBox.as" mod="1266769520000" size="2437" optimizedsize="2352">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/CheckBox.as" mod="1269708011000" size="2443" optimizedsize="2357">
       <def id="framework.components:CheckBox" />
       <pre id="framework.display:ElementBase" />
       <dep id="flash.events:MouseEvent" />
       <dep id="flash.events:FocusEvent" />
-      <dep id="flash.filters:DropShadowFilter" />
       <dep id="flash.text:TextField" />
+      <dep id="flash.filters:GlowFilter" />
       <dep id="flash.events:Event" />
       <dep id="flash.filters:BitmapFilter" />
       <dep id="AS3" />
@@ -361,7 +370,7 @@
       <dep id="AS3" />
       <dep id="framework.view:MiniHTMLRenderer" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/data/Data.as" mod="1265742570000" size="3283" optimizedsize="3162">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/data/Data.as" mod="1269708011000" size="3294" optimizedsize="3172">
       <def id="framework.data:Data" />
       <pre id="flash.events:EventDispatcher" />
       <dep id="framework.data:ModelUtils" />
@@ -380,7 +389,7 @@
       <dep id="framework.view.html:Layer" />
       <dep id="framework.view.html:Document" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Layer.as" mod="1265744260000" size="1135" optimizedsize="1089">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Layer.as" mod="1269708011000" size="1136" optimizedsize="1089">
       <def id="framework.view.html:Layer" />
       <pre id="framework.view.html:Element" />
       <dep id="AS3" />
@@ -433,13 +442,13 @@
       <dep id="framework.config:PreloaderBase" />
       <dep id="framework.utils:ClassUtils" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/RadioButton.as" mod="1266769539000" size="2552" optimizedsize="2465">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/RadioButton.as" mod="1269708011000" size="2558" optimizedsize="2470">
       <def id="framework.components:RadioButton" />
       <pre id="framework.display:ElementBase" />
       <dep id="flash.events:MouseEvent" />
       <dep id="flash.events:FocusEvent" />
-      <dep id="flash.filters:DropShadowFilter" />
       <dep id="flash.text:TextField" />
+      <dep id="flash.filters:GlowFilter" />
       <dep id="flash.events:Event" />
       <dep id="flash.filters:BitmapFilter" />
       <dep id="AS3" />
@@ -461,13 +470,13 @@
       <dep id="flash.events:Event" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/Button.as" mod="1266769575000" size="2858" optimizedsize="2743">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/Button.as" mod="1269708011000" size="2864" optimizedsize="2748">
       <def id="framework.components:Button" />
       <pre id="framework.display:ElementBase" />
       <dep id="flash.events:MouseEvent" />
       <dep id="flash.events:FocusEvent" />
-      <dep id="flash.filters:DropShadowFilter" />
       <dep id="flash.text:TextField" />
+      <dep id="flash.filters:GlowFilter" />
       <dep id="flash.events:Event" />
       <dep id="flash.filters:BitmapFilter" />
       <dep id="AS3" />
@@ -506,14 +515,14 @@
       <dep id="framework.data:Data" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/TextInput.as" mod="1266769557000" size="4288" optimizedsize="4125">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/TextInput.as" mod="1269708011000" size="4292" optimizedsize="4131">
       <def id="framework.components:TextInput" />
       <pre id="framework.display:ElementBase" />
       <dep id="flash.events:MouseEvent" />
       <dep id="flash.events:FocusEvent" />
-      <dep id="flash.filters:DropShadowFilter" />
       <dep id="flash.text:TextField" />
       <dep id="RegExp" />
+      <dep id="flash.filters:GlowFilter" />
       <dep id="flash.filters:BitmapFilter" />
       <dep id="flash.events:Event" />
       <dep id="AS3" />
@@ -546,7 +555,7 @@
       <dep id="framework.controller:SWFAddress" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/controller/Controller.as" mod="1268153566000" size="4394" optimizedsize="4187">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/controller/Controller.as" mod="1269708011000" size="4631" optimizedsize="4418">
       <def id="framework.controller:Controller" />
       <pre id="flash.events:EventDispatcher" />
       <dep id="framework.config:Boot" />
@@ -560,6 +569,7 @@
       <dep id="framework.events:ViewEvent" />
       <dep id="framework.view:RendererBase" />
       <dep id="framework.controller:SWFAddress" />
+      <dep id="framework.data:UndoRedo" />
       <dep id="trace" />
       <dep id="framework.net:Assets" />
     </script>
@@ -581,7 +591,7 @@
       <dep id="flash.utils:getDefinitionByName" />
       <dep id="framework.utils:StringUtils" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/config/Boot.as" mod="1268153357000" size="2134" optimizedsize="2062">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/config/Boot.as" mod="1269708011000" size="2193" optimizedsize="2117">
       <def id="framework.config:Boot" />
       <pre id="framework.display:DisplayObjectBase" />
       <dep id="framework.net:AssetsGroup" />
@@ -605,7 +615,7 @@
       <pre id="com.greensock.core:TweenCore" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/Scroll.as" mod="1266817554000" size="4600" optimizedsize="4424">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/Scroll.as" mod="1269708011000" size="4577" optimizedsize="4401">
       <def id="framework.components:Scroll" />
       <pre id="flash.display:Sprite" />
       <dep id="flash.events:MouseEvent" />
@@ -619,7 +629,7 @@
       <dep id="framework.components:ScrollBar" />
       <dep id="flash.display:Shape" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Navigator.as" mod="1265244218000" size="669" optimizedsize="655">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Navigator.as" mod="1269708011000" size="725" optimizedsize="709">
       <def id="framework.view.html:Navigator" />
       <pre id="flash.events:EventDispatcher" />
       <dep id="framework.display:Base" />
@@ -646,7 +656,7 @@
       <dep id="framework.view.html:Element" />
       <dep id="framework.view.html:Document" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/tags/FormTags.as" mod="1266880599000" size="6287" optimizedsize="6181">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/tags/FormTags.as" mod="1269708011000" size="6782" optimizedsize="6664">
       <def id="framework.view.html.tags:FormTags" />
       <pre id="Object" />
       <dep id="flash.events:MouseEvent" />
@@ -654,6 +664,7 @@
       <dep id="flash.events:Event" />
       <dep id="flash.events:HTTPStatusEvent" />
       <dep id="framework.components:TextInput" />
+      <dep id="framework.components:TextArea" />
       <dep id="flash.net:URLRequest" />
       <dep id="framework.view.html:Document" />
       <dep id="framework.view.html:Window" />
@@ -673,8 +684,8 @@
       <dep id="flash.events:IOErrorEvent" />
       <dep id="framework.components:Stepper" />
       <dep id="flash.events:SecurityErrorEvent" />
-      <dep id="framework.view.html:Form" />
       <dep id="framework.display:Base" />
+      <dep id="framework.view.html:Form" />
       <dep id="flash.net:navigateToURL" />
       <dep id="framework.controller:Controller" />
       <dep id="flash.net:URLVariables" />
@@ -698,13 +709,32 @@
       <dep id="flash.utils:Endian" />
       <dep id="framework.net:Assets" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/utils/ArrayUtils.as" mod="1265244050000" size="339" optimizedsize="316">
-      <def id="framework.utils:ArrayUtils" />
-      <pre id="Object" />
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/components/TextArea.as" mod="1269708011000" size="5034" optimizedsize="4840">
+      <def id="framework.components:TextArea" />
+      <pre id="framework.display:ElementBase" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="flash.events:FocusEvent" />
+      <dep id="flash.text:TextField" />
+      <dep id="RegExp" />
+      <dep id="flash.filters:GlowFilter" />
+      <dep id="flash.filters:BitmapFilter" />
+      <dep id="flash.events:Event" />
       <dep id="AS3" />
+      <dep id="framework.view.html:Document" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="framework.view.html:Form" />
+      <dep id="flash.events:KeyboardEvent" />
+      <dep id="XML" />
+      <dep id="flash.text:TextFormat" />
+      <dep id="framework.view.html:Element" />
     </script>
     <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/com/greensock/core/PropTween.as" mod="1264373262000" size="423" optimizedsize="416">
       <def id="com.greensock.core:PropTween" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/utils/ArrayUtils.as" mod="1265244050000" size="339" optimizedsize="316">
+      <def id="framework.utils:ArrayUtils" />
       <pre id="Object" />
       <dep id="AS3" />
     </script>
@@ -743,7 +773,7 @@
       <dep id="com.company.project.renderers:GameRenderer" />
       <dep id="AS3" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Element.as" mod="1266345660000" size="970" optimizedsize="933">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/lib/src/framework/view/html/Element.as" mod="1268234358000" size="1369" optimizedsize="1318">
       <def id="framework.view.html:Element" />
       <pre id="framework.view.html:Node" />
       <dep id="framework.display:Text" />
@@ -767,7 +797,7 @@
       <dep id="AS3" />
       <dep id="framework.net:Assets" />
     </script>
-    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/src/com/company/project/renderers/GameRenderer.as" mod="1265838264000" size="717" optimizedsize="690">
+    <script name="/Users/talltyler/Sites/ASTRID/versions/ASTRID/src/com/company/project/renderers/GameRenderer.as" mod="1265838264000" size="722" optimizedsize="695">
       <def id="com.company.project.renderers:GameRenderer" />
       <pre id="framework.view:RendererBase" />
       <dep id="com.company.project.renderers:Pong" />
@@ -849,6 +879,7 @@
     <ext id="flash.display:Bitmap" />
     <ext id="flash.events:DataEvent" />
     <ext id="flash.external:ExternalInterface" />
+    <ext id="flash.system:Security" />
     <ext id="flash.events:KeyboardEvent" />
     <ext id="flash.net:navigateToURL" />
     <ext id="flash.geom:Matrix" />
@@ -864,7 +895,6 @@
     <ext id="Array" />
     <ext id="flash.net:FileReference" />
     <ext id="flash.events:EventDispatcher" />
-    <ext id="flash.filters:DropShadowFilter" />
     <ext id="flash.system:SecurityDomain" />
     <ext id="flash.text.engine:FontLookup" />
     <ext id="flash.text.engine:BreakOpportunity" />
@@ -924,6 +954,7 @@
     <ext id="trace" />
     <ext id="flash.events:ErrorEvent" />
     <ext id="flash.text:TextField" />
+    <ext id="flash.filters:GlowFilter" />
     <ext id="flash.display:MovieClip" />
   </external-defs>
 </report>
