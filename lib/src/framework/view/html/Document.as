@@ -185,13 +185,9 @@ package framework.view.html
 				for( var i:uint=0; i < target.numChildren; i++) {
 					var child:* = target.getChildAt(i);
 					if( child is Node ){
-						var classes:String = ( child as Node ).innerXML.localName();
-						if( classes ) {
-							for each( var clazz:String in classes.split(" ") ) {
-								if( clazz == name ) {
-									results.push( child );
-								}
-							}
+						var nodeName:String = ( child as Node ).innerXML.localName();
+						if( nodeName == name ) {
+							results.push( child );
 						}
 					}
 			      	if( child is DisplayObjectContainer ) {
