@@ -1,30 +1,30 @@
-package framework.data.adapters
-{
+package framework.data.adapters {
+
 	import asunit.framework.TestCase;
-	import framework.data.adapters.JSONAdapter;
-		
-	public class JSONAdapterTest extends TestCase 
-	{
+
+	public class JSONAdapterTest extends TestCase {
 		private var instance:JSONAdapter;
 
-		public function JSONAdapterTest() 
-		{
-			super();
+		public function JSONAdapterTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
+		override protected function setUp():void {
+			super.setUp();
 			instance = new JSONAdapter();
 		}
 
-		protected override function tearDown():void 
-		{
+		override protected function tearDown():void {
+			super.tearDown();
 			instance = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("JSONAdapter instantiated", instance is JSONAdapter);
+		public function testInstantiated():void {
+			assertTrue("instance is JSONAdapter", instance is JSONAdapter);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

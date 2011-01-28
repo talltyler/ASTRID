@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   minWidth="855" minHeight="600" creationComplete="init()">
+	<fx:Script>
+		<![CDATA[
+
+			import framework.controller.Controller;
+			import framework.view.html.Navigator;
+			import framework.view.html.Window;
+	
+			public function init():void
+			{
+				var controller:Controller = new Controller( container );
+				var navigator:Navigator = new Navigator( controller );
+				var window:Window = new Window( navigator, 855, 600 );
+				container.addChild( window );
+				
+				window.frames[0].getLayer(0).innerHTML =
+					'<div style="width:855px; height:22px; background:#F90;">'+
+					'	Flex Example'+
+					'</div>'+
+					'<div style="width:855px; height:500px; background:#EEE;">'+
+					'	<form action="site/contact" method="post">'+
+					'		<input type="text" name="name" restrict="A-Z,a-z" maxlength="12" placeholder="Name">'+
+					'		<input type="email" name="email" placeholder="Email">'+
+					'		<input type="text" name="subject" placeholder="Subject" min="10">'+
+					'		<textarea name="message" placeholder="message"></textarea>'+
+					'		<input type="submit" label="Submit">'+
+					'	</form>'+
+					'</div>'+
+					'<div style="clear:both; width:855px; height:22px; background:#333;">'+
+					'	<p style="color:#FFF">Rendered with ASTRID\'s HTMLWrapper</p>'+
+					'</div>';
+			}	
+			
+		]]>
+	</fx:Script>
+	<mx:UIComponent id="container" />
+</s:Application>

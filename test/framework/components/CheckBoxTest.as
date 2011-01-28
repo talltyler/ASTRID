@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.CheckBox;
-		
-	public class CheckBoxTest extends TestCase 
-	{
-		private var instance:CheckBox;
 
-		public function CheckBoxTest() 
-		{
-			super();
+	public class CheckBoxTest extends TestCase {
+		private var checkBox:CheckBox;
+
+		public function CheckBoxTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new CheckBox();
+		override protected function setUp():void {
+			super.setUp();
+			checkBox = new CheckBox();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			checkBox = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("CheckBox instantiated", instance is CheckBox);
+		public function testInstantiated():void {
+			assertTrue("checkBox is CheckBox", checkBox is CheckBox);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

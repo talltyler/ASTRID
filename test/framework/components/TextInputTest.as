@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.TextInput;
-		
-	public class TextInputTest extends TestCase 
-	{
-		private var instance:TextInput;
 
-		public function TextInputTest() 
-		{
-			super();
+	public class TextInputTest extends TestCase {
+		private var textInput:TextInput;
+
+		public function TextInputTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new TextInput();
+		override protected function setUp():void {
+			super.setUp();
+			textInput = new TextInput();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			textInput = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("TextInput instantiated", instance is TextInput);
+		public function testInstantiated():void {
+			assertTrue("textInput is TextInput", textInput is TextInput);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

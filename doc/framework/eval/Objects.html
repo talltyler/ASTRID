@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="Objects,framework.eval.Objects,parse" name="keywords">
+<title>framework.eval.Objects</title>
+<script src="../../scripts/shCore.js" type="text/javascript"></script><script src="../../scripts/shBrushCss.js" type="text/javascript"></script><script src="../../scripts/shBrushJScript.js" type="text/javascript"></script><script src="../../scripts/shBrushRuby.js" type="text/javascript"></script><script src="../../scripts/shBrushXml.js" type="text/javascript"></script><script src="../../scripts/shBrushAS3.js" type="text/javascript"></script>
+<link href="../../styles/shCore.css" rel="stylesheet" type="text/css">
+<link href="../../styles/shThemeDefault.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+							SyntaxHighlighter.defaults.light = true;
+							SyntaxHighlighter.all();
+						</script>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Objects - API Documentation';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Main</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?framework/eval/Objects.html&amp;framework/eval/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Objects</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Objects"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">framework.eval</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Objects</td>
+</tr>
+</table>
+<p></p>
+ <p>
+ Objects can take text that has data and logic defined within it and 
+ evaluate it down to the converted objects value. 
+ </p>
+ 
+ <p>This started with a class that could load a String of data and runtime and be able to 
+ simple pick out Objects defined within the String of data and replace these String with 
+ the ActionScript Object value. This idea grew after I needed a way to loop over data
+ that was loaded from a server. I realized it would be nice to have conditionals and all
+ of the other parts of a basic logic.</p>
+ 
+ <p>This type of thing is often called a templating language and can be found in many 
+ server side languages. This language is modeled in a very similar way to things like 
+ Liquid in Ruby or Smarty in PHP but skips out on a few of the more complicated features 
+ to make sure that this class doesn't become a beast of a script.</p>
+ 
+ <b>Currently it supports </b>
+ <p>
+ <b>Loops:</b>
+ For in loops, for each in loops are both implimented with limit and offset properties for 
+ Arrays. You can also use numeric ranges like in Ruby with ... and .. 
+ example; 3...5 would return and Array with [3,4,5]. The difference between two dots and three
+ is if you would like to include the last value. 
+ </p>
+ <p>
+ <b>Conditionals:</b>
+ If statements with if, if else and else all work with the following operators, 
+ ==, !=, &lt;=, and &gt;=. You can also string conditions together with the &amp;&amp; and || 
+ operators. Conditionals don't currently support parenthesis which would allow for even more 
+ complicated conditionals but this is rairly used. Tell me if you need them. 
+ </p>
+ <p>
+ <b>Math:</b>
+ Math operations like +, -, /, and % are all supported. I've left out the binary operaters 
+ but it is easy to add them if you need them.
+ </p>
+ <p>
+ <p>
+ <b>Variables:</b>
+ Some times you need a variable to store things while looping over objects, simple variable 
+ assignment can be used just like ActionScript.
+ </p>
+ <p>
+ <p>
+ <b>Dot syntax:</b>
+ Everything is created with nested objects, just like ActionScript you can drill into any 
+ deeply nested object. This is notable if you remember tellTarget in AS1
+ </p>
+ <p>
+ <b>Methods:</b>
+ You can't define new methods but you can call any public function or property contained 
+ within your data object. Feel free to pass in scope to other methods if you would like
+ the language to be more powerful.
+ </p>
+ 
+ <p>
+ Think of all of this as a way to mold your loaded text into anything you would 
+ like in a secure way. It's great for APIs, injecting variables or simplifying CSS and
+ HTML content. If you come up with other uses I would love to hear about them.
+ </p>
+ 
+ <p></p>
+<br>
+<span class="label">Example</span>
+<br> <p>
+ <pre class="brush: as3;">
+ var source:String = "Hello &lt;% name %&gt;!";
+ var data:Object = {name:"Tyler"};
+ var objects:Objects = new Objects();
+ var result:String = objects.parse( source, data, &quot;&lt;%&quot;, &quot;%&gt;&quot; );
+ trace( result );
+ </pre>
+ </p>
+ 
+ <p>One of the key features of it is that because I don&#x27;t know what type of text this logic 
+ might be contained within, so the logic delimiters are variable. For instance a for loop can 
+ be written like this;
+ <pre class="brush: as3;">
+ &lt;% for(prop in item) %&gt;
+  &lt;% prop %&gt;&lt;% item[prop] %&gt;
+ &lt;% end %&gt;
+ </pre>
+ </p>
+ <p>
+ or like this, if you change the delimiters;
+ <pre class="brush: as3;">
+ {{ for(prop in item) }}
+  {{ prop }}{{ item[prop] }}
+ {{ end }}
+ </pre>
+ </p>
+ <p>
+ Here is a larger example:
+ <pre class="brush: as3;">
+ &lt;h2&gt;Images&lt;/h2&gt;
+ &lt;div&gt;
+  &lt;% for each(image in images.data) %&gt;
+   &lt;div class=&quot;image&quot;&gt;
+    &lt;% image %&gt;
+   &lt;/div&gt;
+  &lt;% end %&gt;
+ &lt;/div&gt;
+ 
+ &lt;div id=&quot;pages&quot;&gt;
+  &lt;% if images.prevPage != 1 %&gt;
+   &lt;a href=&quot;#/game/index/?page=&lt;% images.prevPage %&gt;&quot;&gt;Previous&lt;/a&gt;
+  &lt;% end %&gt;
+  &lt;% if images.nextPage != images.currentPage %&gt;
+   &lt;a href=&quot;#/game/index/?page=&lt;% images.nextPage %&gt;&quot;&gt;Next&lt;/a&gt;
+  &lt;% end %&gt;
+ &lt;/div&gt;
+ </pre>
+ </p>
+ <p>
+ This gets converted to something like this;
+ <pre class="brush: xml;">
+ &lt;h2&gt;Images&lt;/h2&gt;
+ &lt;div id=&quot;images&quot;&gt;
+  &lt;div class=&quot;image&quot;&gt;
+   &lt;img src=&quot;image1.jpg&quot; /&gt;
+   &lt;img src=&quot;image2.jpg&quot; /&gt;
+   &lt;img src=&quot;image3.jpg&quot; /&gt;
+   &lt;img src=&quot;image4.jpg&quot; /&gt;
+   &lt;img src=&quot;image5.jpg&quot; /&gt;
+   &lt;img src=&quot;image6.jpg&quot; /&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+ 
+ &lt;div id=&quot;pages&quot;&gt;
+  &lt;a href=&quot;#/game/index/?page=2&quot;&gt;Next&lt;/a&gt;
+ &lt;/div&gt;
+ </pre>
+ </p>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#Objects()">Objects</a>()</div>
+<div class="summaryTableDescription">
+  </div>
+</td><td class="summaryTableOwnerCol">Objects</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#parse()">parse</a>(source:String, data:Object = null, startChars:String = "&lt;%", endChars:String = "%&gt;"):String</div>
+<div class="summaryTableDescription">
+  This is the main method within the Objects class.</div>
+</td><td class="summaryTableOwnerCol">Objects</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="Objects()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Objects</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function Objects()</code><p>
+  </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="parse()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">parse</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function parse(source:String, data:Object = null, startChars:String = "&lt;%", endChars:String = "%&gt;"):String</code><p>
+  This is the main method within the Objects class. It accepts any string and evaluates anything 
+  within the logic delimiters. Simply pass in your string, the data that contains the 
+  needed values and the delimiters that you would like and this method will pass back a
+  evaluated string with the replaced values.
+  
+  </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">source</span>:String</code> &mdash; String 
+  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">data</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; Object 
+  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">startChars</span>:String</code> (default = "<code>&lt;%</code>")<code></code> &mdash; String 
+  </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">endChars</span>:String</code> (default = "<code>%&gt;</code>")<code></code> &mdash; String
+  </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>String</code> &mdash; Returns a String of evaluated texted based on the data that you have passed in.
+  </td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

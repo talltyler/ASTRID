@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.Slider;
-		
-	public class SliderTest extends TestCase 
-	{
-		private var instance:Slider;
 
-		public function SliderTest() 
-		{
-			super();
+	public class SliderTest extends TestCase {
+		private var slider:Slider;
+
+		public function SliderTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Slider();
+		override protected function setUp():void {
+			super.setUp();
+			slider = new Slider();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			slider = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Slider instantiated", instance is Slider);
+		public function testInstantiated():void {
+			assertTrue("slider is Slider", slider is Slider);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

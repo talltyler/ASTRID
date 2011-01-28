@@ -1,30 +1,30 @@
-package framework.controller
-{
+package framework.controller {
+
 	import asunit.framework.TestCase;
-	import framework.controller.Routes;
-		
-	public class RoutesTest extends TestCase 
-	{
-		private var instance:Routes;
 
-		public function RoutesTest() 
-		{
-			super();
+	public class RoutesTest extends TestCase {
+		private var routes:Routes;
+
+		public function RoutesTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Routes();
+		override protected function setUp():void {
+			super.setUp();
+			routes = new Routes();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			routes = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Routes instantiated", instance is Routes);
+		public function testInstantiated():void {
+			assertTrue("routes is Routes", routes is Routes);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

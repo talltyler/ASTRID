@@ -1,30 +1,30 @@
-package framework.view
-{
+package framework.view {
+
 	import asunit.framework.TestCase;
-	import framework.view.RendererBase;
-		
-	public class RendererBaseTest extends TestCase 
-	{
+
+	public class RendererBaseTest extends TestCase {
 		private var instance:RendererBase;
 
-		public function RendererBaseTest() 
-		{
-			super();
+		public function RendererBaseTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
+		override protected function setUp():void {
+			super.setUp();
 			instance = new RendererBase();
 		}
 
-		protected override function tearDown():void 
-		{
+		override protected function tearDown():void {
+			super.tearDown();
 			instance = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("RendererBase instantiated", instance is RendererBase);
+		public function testInstantiated():void {
+			assertTrue("instance is RendererBase", instance is RendererBase);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

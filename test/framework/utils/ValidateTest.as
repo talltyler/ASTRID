@@ -1,30 +1,30 @@
-package framework.utils
-{
+package framework.utils {
+
 	import asunit.framework.TestCase;
-	import framework.utils.Validate;
-		
-	public class ValidateTest extends TestCase 
-	{
-		private var instance:Validate;
 
-		public function ValidateTest() 
-		{
-			super();
+	public class ValidateTest extends TestCase {
+		private var validate:Validate;
+
+		public function ValidateTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Validate();
+		override protected function setUp():void {
+			super.setUp();
+			validate = new Validate();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			validate = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Validate instantiated", instance is Validate);
+		public function testInstantiated():void {
+			assertTrue("validate is Validate", validate is Validate);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

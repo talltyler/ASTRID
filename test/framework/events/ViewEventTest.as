@@ -1,30 +1,30 @@
-package framework.events
-{
+package framework.events {
+
 	import asunit.framework.TestCase;
-	import framework.display.ViewEvent;
-		
-	public class ViewEventTest extends TestCase 
-	{
-		private var instance:ViewEvent;
 
-		public function ViewEventTest() 
-		{
-			super();
+	public class ViewEventTest extends TestCase {
+		private var viewEvent:ViewEvent;
+
+		public function ViewEventTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new ViewEvent();
+		override protected function setUp():void {
+			super.setUp();
+			viewEvent = new ViewEvent();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			viewEvent = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("ViewEvent instantiated", instance is ViewEvent);
+		public function testInstantiated():void {
+			assertTrue("viewEvent is ViewEvent", viewEvent is ViewEvent);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

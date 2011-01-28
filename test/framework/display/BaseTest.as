@@ -1,30 +1,30 @@
-package framework.display
-{
+package framework.display {
+
 	import asunit.framework.TestCase;
-	import framework.display.Base;
-		
-	public class BaseTest extends TestCase 
-	{
-		private var instance:Base;
 
-		public function BaseTest() 
-		{
-			super();
+	public class BaseTest extends TestCase {
+		private var base:Base;
+
+		public function BaseTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Base();
+		override protected function setUp():void {
+			super.setUp();
+			base = new Base();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			base = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Base instantiated", instance is Base);
+		public function testInstantiated():void {
+			assertTrue("base is Base", base is Base);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

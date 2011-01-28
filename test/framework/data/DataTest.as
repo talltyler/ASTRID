@@ -1,30 +1,30 @@
-package framework.data
-{
+package framework.data {
+
 	import asunit.framework.TestCase;
-	import framework.data.Data;
-		
-	public class DataTest extends TestCase 
-	{
-		private var instance:Data;
 
-		public function DataTest() 
-		{
-			super();
+	public class DataTest extends TestCase {
+		private var data:Data;
+
+		public function DataTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Data();
+		override protected function setUp():void {
+			super.setUp();
+			data = new Data();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			data = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Data instantiated", instance is Data);
+		public function testInstantiated():void {
+			assertTrue("data is Data", data is Data);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

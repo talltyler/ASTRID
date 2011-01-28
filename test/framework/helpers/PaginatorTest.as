@@ -1,30 +1,30 @@
-package framework.helpers
-{
+package framework.helpers {
+
 	import asunit.framework.TestCase;
-	import framework.display.Paginator;
-		
-	public class PaginatorTest extends TestCase 
-	{
-		private var instance:Paginator;
 
-		public function PaginatorTest() 
-		{
-			super();
+	public class PaginatorTest extends TestCase {
+		private var paginator:Paginator;
+
+		public function PaginatorTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Paginator();
+		override protected function setUp():void {
+			super.setUp();
+			paginator = new Paginator();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			paginator = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Paginator instantiated", instance is Paginator);
+		public function testInstantiated():void {
+			assertTrue("paginator is Paginator", paginator is Paginator);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

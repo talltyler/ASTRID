@@ -1,47 +1,30 @@
-package framework.utils 
-{
-	import flash.display.*;
-	import flash.events.*;
-	
+package framework.utils {
+
 	import asunit.framework.TestCase;
-	import framework.utils.*;
-	
-	public class ObjectUtilsTest extends TestCase 
-	{
+
+	public class ObjectUtilsTest extends TestCase {
 		private var instance:ObjectUtils;
-		
-		public function ObjectUtilsTest()
-		{
-			super();
+
+		public function ObjectUtilsTest(methodName:String=null) {
+			super(methodName)
 		}
-		
-		protected override function setUp():void {
+
+		override protected function setUp():void {
+			super.setUp();
 			instance = new ObjectUtils();
 		}
 
-		protected override function tearDown():void {
+		override protected function tearDown():void {
+			super.tearDown();
 			instance = null;
 		}
 
 		public function testInstantiated():void {
-			assertTrue("ObjectUtils instantiated", instance is ObjectUtils );	
-		}
-		
-		public function testCloneObject():void {
-			var obj:Object = ObjectUtils.cloneObject( {name:"value"} );
-			assertTrue("ObjectUtils.cloneObject with Class", 
-				obj is Object && 
-				obj.hasOwnProperty("name") && 
-				obj.name == "value" && 
-				obj.name is String );
-		}
-		
-		public function testCleanObject():void {
-			var cleanedObject1:* = instance.cleanObject( new Sprite, "this.parent" );
-			assertTrue("ObjectUtils.cleanObject - this.parent", cleanedObject1 == null );
-			var cleanedObject2:Number = instance.cleanObject( new Sprite, "this.alpha" );
-			assertTrue("ObjectUtils.cleanObject - this.alpha", cleanedObject2 is Number );
+			assertTrue("instance is ObjectUtils", instance is ObjectUtils);
 		}
 
+		public function testFailure():void {
+			assertTrue("Failing test", false);
+		}
 	}
 }

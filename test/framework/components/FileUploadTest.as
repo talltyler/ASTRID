@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.FileUpload;
-		
-	public class FileUploadTest extends TestCase 
-	{
-		private var instance:FileUpload;
 
-		public function FileUploadTest() 
-		{
-			super();
+	public class FileUploadTest extends TestCase {
+		private var fileUpload:FileUpload;
+
+		public function FileUploadTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new FileUpload();
+		override protected function setUp():void {
+			super.setUp();
+			fileUpload = new FileUpload();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			fileUpload = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("FileUpload instantiated", instance is FileUpload);
+		public function testInstantiated():void {
+			assertTrue("fileUpload is FileUpload", fileUpload is FileUpload);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

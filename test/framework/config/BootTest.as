@@ -1,30 +1,30 @@
-package framework.config
-{
+package framework.config {
+
 	import asunit.framework.TestCase;
-	import framework.config.Boot;
-		
-	public class BootTest extends TestCase 
-	{
-		private var instance:Boot;
 
-		public function BootTest() 
-		{
-			super();
+	public class BootTest extends TestCase {
+		private var boot:Boot;
+
+		public function BootTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Boot();
+		override protected function setUp():void {
+			super.setUp();
+			boot = new Boot();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			boot = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Boot instantiated", instance is Boot);
+		public function testInstantiated():void {
+			assertTrue("boot is Boot", boot is Boot);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

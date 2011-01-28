@@ -36,7 +36,6 @@ package com.company.project.context
 		public function send_email( params:Object ):void
 		{
 			trace("send_email", params)
-			
 		}
 	}
 }

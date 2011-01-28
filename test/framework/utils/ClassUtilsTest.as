@@ -1,30 +1,30 @@
-package framework.utils
-{
+package framework.utils {
+
 	import asunit.framework.TestCase;
-	import framework.utils.ClassUtils;
-		
-	public class ClassUtilsTest extends TestCase 
-	{
-		private var instance:ClassUtils;
 
-		public function ClassUtilsTest() 
-		{
-			super();
+	public class ClassUtilsTest extends TestCase {
+		private var classUtils:ClassUtils;
+
+		public function ClassUtilsTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new ArrayUtils();
+		override protected function setUp():void {
+			super.setUp();
+			classUtils = new ClassUtils();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			classUtils = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("ClassUtils instantiated", instance is ClassUtils);
+		public function testInstantiated():void {
+			assertTrue("classUtils is ClassUtils", classUtils is ClassUtils);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

@@ -1,30 +1,30 @@
-package framework.events
-{
+package framework.events {
+
 	import asunit.framework.TestCase;
-	import framework.display.ListenerManager;
-		
-	public class ListenerManagerTest extends TestCase 
-	{
+
+	public class ListenerManagerTest extends TestCase {
 		private var instance:ListenerManager;
 
-		public function ListenerManagerTest() 
-		{
-			super();
+		public function ListenerManagerTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
+		override protected function setUp():void {
+			super.setUp();
 			instance = new ListenerManager();
 		}
 
-		protected override function tearDown():void 
-		{
+		override protected function tearDown():void {
+			super.tearDown();
 			instance = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("ListenerManager instantiated", instance is ListenerManager);
+		public function testInstantiated():void {
+			assertTrue("instance is ListenerManager", instance is ListenerManager);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

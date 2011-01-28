@@ -1,30 +1,30 @@
-package framework.events
-{
+package framework.events {
+
 	import asunit.framework.TestCase;
-	import framework.display.ModelEvent;
-		
-	public class ModelEventTest extends TestCase 
-	{
-		private var instance:ModelEvent;
 
-		public function ModelEventTest() 
-		{
-			super();
+	public class ModelEventTest extends TestCase {
+		private var modelEvent:ModelEvent;
+
+		public function ModelEventTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new ModelEvent();
+		override protected function setUp():void {
+			super.setUp();
+			modelEvent = new ModelEvent();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			modelEvent = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("ModelEvent instantiated", instance is ModelEvent);
+		public function testInstantiated():void {
+			assertTrue("modelEvent is ModelEvent", modelEvent is ModelEvent);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

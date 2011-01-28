@@ -1,30 +1,30 @@
-package framework.data.adapters
-{
+package framework.data.adapters {
+
 	import asunit.framework.TestCase;
-	import framework.data.adapters.XMLAdapter;
-		
-	public class XMLAdapterTest extends TestCase 
-	{
-		private var instance:XMLAdapter;
 
-		public function XMLAdapterTest() 
-		{
-			super();
+	public class XMLAdapterTest extends TestCase {
+		private var xMLAdapter:XMLAdapter;
+
+		public function XMLAdapterTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new XMLAdapter();
+		override protected function setUp():void {
+			super.setUp();
+			xMLAdapter = new XMLAdapter();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			xMLAdapter = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("XMLAdapter instantiated", instance is XMLAdapter);
+		public function testInstantiated():void {
+			assertTrue("xMLAdapter is XMLAdapter", xMLAdapter is XMLAdapter);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

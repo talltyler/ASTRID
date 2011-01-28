@@ -1,7 +1,99 @@
 ASTRID
 ===
-It's goal is to make the ActionScript application development process more efficient. Applications built with it can be compiled from Flash Pro, Flash Builder, or strait from the command line. They can run in all runtimes ( web, mobile, and desktop applications ). The framework is filled with tools to help limit duplication of effort by providing a huge utility package. All of this is done while still keeping a reasonable compiled size (~30kb base) and the runs efficiently.
+Rapid iterative development is hard to come by in the ActionScript community, ASTRID tries to fill that void a little and give a foundation to build on to hopefully make things even easier. There are more buzzwords that you will ever want to look at that can describe the foundation of what ASTRID was build on but that is not the point. It is a solid application structure that any application would benefit from starting off from and because of the way that it is built is extremely simple to swap parts of the framework out for different libraries or frameworks as you see fit. 
+
+To get something up and running you need three ActionScript files, here is the first.
+
+src/Main.as
+	package
+	{
+		import flash.events.Event;
+		import framework.config.Preloader;
+		import com.paperlesspost.create.App;
+
+		public class Main extends Preloader
+		{
+			public function Main()
+			{
+				super( "com.company.project.App" );
+				new App();
+			}
+		}
+	}
+
+src/com/company/project/App.as
+	package com.company.project
+	{
+		import flash.events.Event;
+		import framework.config.Boot;
+		import framework.config.Preloader;
+		import com.company.project.data.*;
+		import com.company.project.context.*;
+
+		public class App extends Boot
+		{
+			override protected function setup( event:Event ):void
+			{
+				// data.add( Users, Addresses ); // example Model objects
+				controller.add( SiteContext ); 
+				routes.add( "", { context:"site" } ); // root route
+				routes.add( ":context/:method/:id" ); // default routes
+			}
+
+			override protected function ready( event:Event ):void
+			{
+				dispatchEvent( new Event(Preloader.REMOVE_PRELOADER, true) );
+				start();
+			}
+		}
+	}
+
+
+// src/com/company/project/context/SiteContext.as
+	package com.company.project.context
+	{
+		import framework.controller.ContextBase;
+		import framework.view.MiniHTMLRenderer;
+		import framework.view.HTMLRenderer;
+	
+		public class SiteContext extends ContextBase
+		{
+			public function index( params:Object ):void
+			{
+				template = "basic-template";
+				data.title = "Hello World!";
+				data.data = [ "one", "two", "three" ];
+				render( MiniHTMLRenderer );
+			}
+		}
+	}
+
+// basic-template
+	<html>
+		<div id="header">
+			<h1><% title %></h1>
+		</div>
+		<div id="content">
+			<div id="left" class="side-column"></div>
+			<div id="middle">
+				<% content %>
+			</div>
+			<div id="right" class="side-column"></div>
+		</div>
+		<div id="footer"></div>
+	</html>
+	
+// /site/index.html
+
+	<% for each(item in data) %>
+		<img src="assets/images/<% item %>.jpg" />
+	<% end %>
+
+
+It's goal is to make the ActionScript application development process more efficient. Applications built with ASTRID can be compiled from Flash Pro, Flash Builder, or strait from the command line. They can run in all runtimes ( web, mobile, and desktop applications ). The framework is filled with tools to help limit duplication of effort by providing a huge utility package. All of this is done while still keeping a reasonable compiled size (~30kb base) and the runs efficiently.
 Many of it's ideas are based on the concepts behind the back-end frameworks like Rails and Django. These ideas will be different to anyone that hasn't worked within these types of systems and you will need to learn a few things before you get started. Here are a few of ASTRID's key features.
+
+
 
 ActiveRecord based models
 ---

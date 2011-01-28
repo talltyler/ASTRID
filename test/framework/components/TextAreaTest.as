@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.TextArea;
-		
-	public class TextAreaTest extends TestCase 
-	{
-		private var instance:TextArea;
 
-		public function TextAreaTest() 
-		{
-			super();
+	public class TextAreaTest extends TestCase {
+		private var textArea:TextArea;
+
+		public function TextAreaTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new TextArea();
+		override protected function setUp():void {
+			super.setUp();
+			textArea = new TextArea();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			textArea = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("TextArea instantiated", instance is TextArea);
+		public function testInstantiated():void {
+			assertTrue("textArea is TextArea", textArea is TextArea);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

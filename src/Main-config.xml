@@ -1,0 +1,24 @@
+<flex-config>
+	<default-background-color>#FFFFFF</default-background-color>
+	<target-player>10.0.0</target-player>
+	<frames><frame><label>app</label><classname>com.company.project.App</classname></frame></frames>
+	<benchmark>true</benchmark>
+	<link-report>../test/report.xml</link-report>
+	<compiler>
+		<debug>false</debug>
+		<incremental>true</incremental>
+		<optimize>true</optimize>
+		<warn-no-constructor>true</warn-no-constructor>
+		<warn-no-explicit-super-call-in-constructor>true</warn-no-explicit-super-call-in-constructor>
+		<show-actionscript-warnings>true</show-actionscript-warnings>
+		<show-binding-warnings>true</show-binding-warnings>
+		<show-unused-type-selector-warnings>true</show-unused-type-selector-warnings>
+		<library-path append="true">
+			<path-element>../lib/bin/</path-element>
+		</library-path>
+		<source-path append="true">
+			<path-element>../lib/src/</path-element>
+		</source-path>
+	</compiler>
+	<raw-metadata></raw-metadata>
+</flex-config>

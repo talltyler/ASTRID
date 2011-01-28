@@ -1,30 +1,30 @@
-package framework.display
-{
+package framework.display {
+
 	import asunit.framework.TestCase;
-	import framework.display.Text;
-		
-	public class TextTest extends TestCase 
-	{
-		private var instance:Text;
 
-		public function TextTest() 
-		{
-			super();
+	public class TextTest extends TestCase {
+		private var text:Text;
+
+		public function TextTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Text();
+		override protected function setUp():void {
+			super.setUp();
+			text = new Text();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			text = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Text instantiated", instance is Text);
+		public function testInstantiated():void {
+			assertTrue("text is Text", text is Text);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

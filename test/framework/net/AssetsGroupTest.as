@@ -1,30 +1,30 @@
-package framework.net
-{
+package framework.net {
+
 	import asunit.framework.TestCase;
-	import framework.net.AssetsGroup;
-		
-	public class AssetsGroupTest extends TestCase 
-	{
+
+	public class AssetsGroupTest extends TestCase {
 		private var instance:AssetsGroup;
 
-		public function AssetsGroupTest() 
-		{
-			super();
+		public function AssetsGroupTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
+		override protected function setUp():void {
+			super.setUp();
 			instance = new AssetsGroup();
 		}
 
-		protected override function tearDown():void 
-		{
+		override protected function tearDown():void {
+			super.tearDown();
 			instance = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("AssetsGroup instantiated", instance is AssetsGroup);
+		public function testInstantiated():void {
+			assertTrue("instance is AssetsGroup", instance is AssetsGroup);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

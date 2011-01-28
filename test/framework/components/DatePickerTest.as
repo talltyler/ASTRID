@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.DatePicker;
-		
-	public class DatePickerTest extends TestCase 
-	{
-		private var instance:DatePicker;
 
-		public function DatePickerTest() 
-		{
-			super();
+	public class DatePickerTest extends TestCase {
+		private var datePicker:DatePicker;
+
+		public function DatePickerTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new DatePicker();
+		override protected function setUp():void {
+			super.setUp();
+			datePicker = new DatePicker();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			datePicker = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("DatePicker instantiated", instance is DatePicker);
+		public function testInstantiated():void {
+			assertTrue("datePicker is DatePicker", datePicker is DatePicker);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

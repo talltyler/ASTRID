@@ -1,30 +1,30 @@
-package framework.data.adapters
-{
+package framework.data.adapters {
+
 	import asunit.framework.TestCase;
-	import framework.data.adapters.SQLiteAdapter;
-		
-	public class SQLiteAdapterTest extends TestCase 
-	{
+
+	public class SQLiteAdapterTest extends TestCase {
 		private var instance:SQLiteAdapter;
 
-		public function SQLiteAdapterTest() 
-		{
-			super();
+		public function SQLiteAdapterTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
+		override protected function setUp():void {
+			super.setUp();
 			instance = new SQLiteAdapter();
 		}
 
-		protected override function tearDown():void 
-		{
+		override protected function tearDown():void {
+			super.tearDown();
 			instance = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("SQLiteAdapter instantiated", instance is SQLiteAdapter);
+		public function testInstantiated():void {
+			assertTrue("instance is SQLiteAdapter", instance is SQLiteAdapter);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

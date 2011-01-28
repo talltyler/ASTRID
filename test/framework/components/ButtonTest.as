@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.Button;
-		
-	public class ButtonTest extends TestCase 
-	{
-		private var instance:Button;
 
-		public function ButtonTest() 
-		{
-			super();
+	public class ButtonTest extends TestCase {
+		private var button:Button;
+
+		public function ButtonTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Button();
+		override protected function setUp():void {
+			super.setUp();
+			button = new Button();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			button = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("App instantiated", instance is Button);
+		public function testInstantiated():void {
+			assertTrue("button is Button", button is Button);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

@@ -1,30 +1,30 @@
-package framework.data.adapters
-{
+package framework.data.adapters {
+
 	import asunit.framework.TestCase;
-	import framework.data.adapters.AdapterBase;
-		
-	public class AdapterBaseTest extends TestCase 
-	{
+
+	public class AdapterBaseTest extends TestCase {
 		private var instance:AdapterBase;
 
-		public function AdapterBaseTest() 
-		{
-			super();
+		public function AdapterBaseTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
+		override protected function setUp():void {
+			super.setUp();
 			instance = new AdapterBase();
 		}
 
-		protected override function tearDown():void 
-		{
+		override protected function tearDown():void {
+			super.tearDown();
 			instance = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("AdapterBase instantiated", instance is AdapterBase);
+		public function testInstantiated():void {
+			assertTrue("instance is AdapterBase", instance is AdapterBase);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

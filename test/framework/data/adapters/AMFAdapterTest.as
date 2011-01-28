@@ -1,30 +1,30 @@
-package framework.data.adapters
-{
+package framework.data.adapters {
+
 	import asunit.framework.TestCase;
-	import framework.data.adapters.AMFAdapter;
-		
-	public class AMFAdapterTest extends TestCase 
-	{
-		private var instance:AMFAdapter;
 
-		public function AMFAdapterTest() 
-		{
-			super();
+	public class AMFAdapterTest extends TestCase {
+		private var aMFAdapter:AMFAdapter;
+
+		public function AMFAdapterTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new AMFAdapter();
+		override protected function setUp():void {
+			super.setUp();
+			aMFAdapter = new AMFAdapter();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			aMFAdapter = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("AMFAdapter instantiated", instance is AMFAdapter);
+		public function testInstantiated():void {
+			assertTrue("aMFAdapter is AMFAdapter", aMFAdapter is AMFAdapter);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

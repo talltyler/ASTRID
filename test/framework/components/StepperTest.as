@@ -1,30 +1,30 @@
-package framework.components
-{
+package framework.components {
+
 	import asunit.framework.TestCase;
-	import framework.components.Stepper;
-		
-	public class StepperTest extends TestCase 
-	{
-		private var instance:Stepper;
 
-		public function StepperTest() 
-		{
-			super();
+	public class StepperTest extends TestCase {
+		private var stepper:Stepper;
+
+		public function StepperTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Stepper();
+		override protected function setUp():void {
+			super.setUp();
+			stepper = new Stepper();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			stepper = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Stepper instantiated", instance is Stepper);
+		public function testInstantiated():void {
+			assertTrue("stepper is Stepper", stepper is Stepper);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

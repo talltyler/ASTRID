@@ -1,30 +1,30 @@
-package framework.net
-{
+package framework.net {
+
 	import asunit.framework.TestCase;
-	import framework.net.Job;
-		
-	public class JobTest extends TestCase 
-	{
-		private var instance:Job;
 
-		public function JobTest() 
-		{
-			super();
+	public class JobTest extends TestCase {
+		private var job:Job;
+
+		public function JobTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Job();
+		override protected function setUp():void {
+			super.setUp();
+			job = new Job();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			job = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Job instantiated", instance is Job);
+		public function testInstantiated():void {
+			assertTrue("job is Job", job is Job);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

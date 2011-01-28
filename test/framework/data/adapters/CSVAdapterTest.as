@@ -1,30 +1,30 @@
-package framework.data.adapters
-{
+package framework.data.adapters {
+
 	import asunit.framework.TestCase;
-	import framework.data.adapters.CSVAdapter;
-		
-	public class CSVAdapterTest extends TestCase 
-	{
-		private var instance:CSVAdapter;
 
-		public function CSVAdapterTest() 
-		{
-			super();
+	public class CSVAdapterTest extends TestCase {
+		private var cSVAdapter:CSVAdapter;
+
+		public function CSVAdapterTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new CSVAdapter();
+		override protected function setUp():void {
+			super.setUp();
+			cSVAdapter = new CSVAdapter();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			cSVAdapter = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("CSVAdapter instantiated", instance is CSVAdapter);
+		public function testInstantiated():void {
+			assertTrue("cSVAdapter is CSVAdapter", cSVAdapter is CSVAdapter);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

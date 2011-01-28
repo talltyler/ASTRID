@@ -1,30 +1,30 @@
-package framework.eval
-{
+package framework.eval {
+
 	import asunit.framework.TestCase;
-	import framework.display.Objects;
-		
-	public class ObjectsTest extends TestCase 
-	{
-		private var instance:Objects;
 
-		public function ObjectsTest() 
-		{
-			super();
+	public class ObjectsTest extends TestCase {
+		private var objects:Objects;
+
+		public function ObjectsTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Objects();
+		override protected function setUp():void {
+			super.setUp();
+			objects = new Objects();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			objects = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Objects instantiated", instance is Objects);
+		public function testInstantiated():void {
+			assertTrue("objects is Objects", objects is Objects);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

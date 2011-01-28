@@ -27,14 +27,16 @@
  */
 package framework.controller 
 {
+	import com.asual.swfaddress.SWFAddress;
+	import com.asual.swfaddress.SWFAddressEvent;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.EventDispatcher;
-	
+
 	import framework.cache.Cache;
 	import framework.config.Boot;
-	import framework.debug.Log;
 	import framework.events.ControllerEvent;
 	import framework.events.ViewEvent;
 	import framework.net.Assets;

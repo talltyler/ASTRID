@@ -1,35 +1,30 @@
-package framework.cache
-{
+package framework.cache {
+
 	import asunit.framework.TestCase;
-	import framework.cache.Cache;
-	
-	public class CacheTest extends TestCase 
-	{
-		private var instance:Cache;
 
-		public function CacheTest() 
-		{
-			super();
+	public class CacheTest extends TestCase {
+		private var cache:Cache;
+
+		public function CacheTest(methodName:String=null) {
+			super(methodName)
 		}
 
-		protected override function setUp():void 
-		{
-			instance = new Cache(this);
+		override protected function setUp():void {
+			super.setUp();
+			cache = new Cache();
 		}
 
-		protected override function tearDown():void 
-		{
-			instance = null;
+		override protected function tearDown():void {
+			super.tearDown();
+			cache = null;
 		}
 
-		public function testInstantiated():void 
-		{
-			assertTrue("Cache instantiated", instance is Cache);
-			
-			instance.name = "Tyler";
-			assertTrue("Cache can get and set dynamic variables", instance.name == "Tyler");
-			
-			assertTrue("Cache has context", instance.context == this);
+		public function testInstantiated():void {
+			assertTrue("cache is Cache", cache is Cache);
+		}
+
+		public function testFailure():void {
+			assertTrue("Failing test", false);
 		}
 	}
 }

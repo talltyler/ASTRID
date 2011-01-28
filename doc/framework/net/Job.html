@@ -1,0 +1,434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="Job,framework.net.Job,bytesLoaded,bytesTotal,length,forEach,push,remove" name="keywords">
+<title>framework.net.Job</title>
+<script src="../../scripts/shCore.js" type="text/javascript"></script><script src="../../scripts/shBrushCss.js" type="text/javascript"></script><script src="../../scripts/shBrushJScript.js" type="text/javascript"></script><script src="../../scripts/shBrushRuby.js" type="text/javascript"></script><script src="../../scripts/shBrushXml.js" type="text/javascript"></script><script src="../../scripts/shBrushAS3.js" type="text/javascript"></script>
+<link href="../../styles/shCore.css" rel="stylesheet" type="text/css">
+<link href="../../styles/shThemeDefault.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+							SyntaxHighlighter.defaults.light = true;
+							SyntaxHighlighter.all();
+						</script>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Job - API Documentation';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Main</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?framework/net/Job.html&amp;framework/net/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Job</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Job"); titleBar_setSubNav(false,true,false,false,true,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">framework.net</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Job</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Job <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
+</tr>
+</table>
+<p></p>
+  <p>
+  Every time you start the loading process from within Assets a Job is created to manage 
+  this group of Asset object. You can monitor the group or add more Asset object to it
+  if you need to. Normally you use them to check it your items are loaded.
+  </p>
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>  <p>
+  <b>Simple Example:</b>
+  <pre class="brush: as3;">
+  var assets:Assets = new Assets();
+  assets.add("file.txt");
+  assets.add("image.jpg");
+  assets.addEventListener(Event.COMPLETE, onComplete);
+  assets.start(); // Start loading
+  function onComplete(event:Event):void {
+    trace( assets.fetch("file.txt") );
+    addChild( assets.fetch("image.jpg") );
+  }
+  </pre>
+  </p>
+  <p>
+  <b>Larger Example</b>
+  <pre class="brush: as3;">
+  var assets:Assets = new Assets();
+  var preloads:Asset = assets.add("preloads.xml");
+  preloads.addVariable("name","value");
+  preloads.addFile(imageOrFileDataByteArray,"fileName");
+  assets.add("image.jpg",assets.options("name", Assets.GRAPHIC, URLRequestMethod.GET, 
+            assets.currentJob, true, onLogoComplete ));
+  assets.addEventListener(Event.COMPLETE, onComplete);
+  preloads.addEventListener(Event.COMPLETE, onPreloadsComplete); 
+  assets.start(); // Start loading
+  </pre>
+  </p>
+  <p>
+  <b>Loading Process and Statistics</b>
+  <pre class="brush: as3;">
+  var assets:Assets = new Assets();
+  var fileAsset:Asset = assets.add("file.txt");
+  var imgAsset:Asset = assets.add("image.jpg");
+  assets.addEventListener(ProgressEvent.PROGRESS, onAssetProgress);
+  imgAsset.addEventListener(ProgressEvent.PROGRESS, onImgProgress);
+  assets.start(); // Start loading
+  function onAssetProgress(event:Event):void {
+    trace( "Numbers for all assets", assets.bytesLoaded, 
+     assets.bytesTotal, assets.speed, assets.averageSpeed );
+  }
+  function onImgProgress(event:Event):void {
+    trace( "Numbers for imgAsset", imgAsset.bytesLoaded, 
+     imgAsset.bytesTotal, imgAsset.speed, imgAsset.averageSpeed );
+  }
+  </pre>
+  </p>
+  <p>
+  <b>Jobs:</b>
+  Jobs are collections of Asset objects.
+  <pre class="brush: as3;">
+  var assets:Assets = new Assets();
+  assets.add("file.txt");
+  assets.add("image.jpg");
+  var job:Job = assets.start();
+  job.addEventListener(Event.COMPLETE,onComplete);
+  </pre>
+  </p>
+  <p>
+  <b>AssetsGroup:</b>
+  AssetsGroup are for loading files defined in external xml files
+  <pre class="brush: as3;">
+  var assets:Assets = new Assets();
+  var group:AssetsGroup = new AssetsGroup(assets);
+  group.add("assets/preloads.xml");
+  group.addEventListener(Event.COMPLETE,onComplete);
+  group.load();
+  </pre>
+  </p>
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../net/Assets.html" target="">framework.net.Assets : Manages all the sending and loading of all Asset objects</a>
+<br>
+<a href="../net/AssetsGroup.html" target="">framework.net.AssetsGroup : Manages groups of elements loaded from XML</a>
+<br>
+<a href="../net/Asset.html" target="">framework.net.Asset : Manages a single request</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#bytesLoaded">bytesLoaded</a> : int<div class="summaryTableDescription">[read-only]
+   Returns the number of bytes loaded as a int for all Assets in the Job 
+   </div>
+</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#bytesTotal">bytesTotal</a> : int<div class="summaryTableDescription">[read-only]
+   Returns the number of bytes total as a int for all Assets in the Job
+    </div>
+</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#length">length</a> : int<div class="summaryTableDescription">[read-only]
+   Returns the number of Assets inside of this Job 
+   </div>
+</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#Job()">Job</a>()</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#forEach()">forEach</a>(callback:Function, thisObject:* = null):void</div>
+<div class="summaryTableDescription">
+   To loop over items in a Job
+    </div>
+</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#push()">push</a>(... args):uint</div>
+<div class="summaryTableDescription">
+   Add Asset objects to a Job object
+    </div>
+</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#remove()">remove</a>(asset:<a href="Asset.html">Asset</a>):void</div>
+<div class="summaryTableDescription">
+   To take something out of a job call remove
+   </div>
+</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+</table>
+</div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:complete">complete</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">&nbsp;</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:ioError">ioError</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">&nbsp;</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:progress">progress</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">&nbsp;</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:removed">removed</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">&nbsp;</td><td class="summaryTableOwnerCol">Job</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="bytesLoaded"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">bytesLoaded</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>bytesLoaded:int</code>&nbsp;&nbsp;[read-only]<p>
+   Returns the number of bytes loaded as a int for all Assets in the Job 
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get bytesLoaded():int</code>
+<br>
+</div>
+<a name="bytesTotal"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">bytesTotal</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>bytesTotal:int</code>&nbsp;&nbsp;[read-only]<p>
+   Returns the number of bytes total as a int for all Assets in the Job
+    </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get bytesTotal():int</code>
+<br>
+</div>
+<a name="length"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">length</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>length:int</code>&nbsp;&nbsp;[read-only]<p>
+   Returns the number of Assets inside of this Job 
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get length():int</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="Job()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Job</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function Job()</code>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="forEach()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">forEach</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function forEach(callback:Function, thisObject:* = null):void</code><p>
+   To loop over items in a Job
+    </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">callback</span>:Function</code> &mdash; The call back function that you want to call on each item
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">thisObject</span>:*</code> (default = <code>null</code>)<code></code> &mdash; A reference to this, default is null
+   </td>
+</tr>
+</table>
+</div>
+<a name="push()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">push</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function push(... args):uint</code><p>
+   Add Asset objects to a Job object
+    </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code>... <span class="label">args</span></code> &mdash;  A rest paramiter to pass in any amount of Assets.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>uint</code> &mdash;  Returns the length of the Jobs after all the Assets have been added
+   </td>
+</tr>
+</table>
+</div>
+<a name="remove()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">remove</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function remove(asset:<a href="Asset.html">Asset</a>):void</code><p>
+   To take something out of a job call remove
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">asset</span>:<a href="Asset.html">Asset</a></code> &mdash;  The Asset that you want to delete form the job
+   </td>
+</tr>
+</table>
+</div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:complete"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">complete</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>flash.event.Event</code></a>
+<br>
+<p></p>
+</div>
+<a name="event:ioError"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ioError</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>flash.event.IOErrorEvent</code></a>
+<br>
+<p></p>
+</div>
+<a name="event:progress"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">progress</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>flash.event.ProgressEvent</code></a>
+<br>
+<p></p>
+</div>
+<a name="event:removed"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removed</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>flash.event.Event</code></a>
+<br>
+<p></p>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

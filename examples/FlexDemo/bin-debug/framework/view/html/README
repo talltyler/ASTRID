@@ -1,0 +1,3 @@
+This is a duplication of the core HTMLWrapper code made on January 7th 2011. Because of the stupid way git submodules work there is no way to use the classes in the parent directory so I have to duplicate them for these examples. Sorry. 
+
+Read the README a the root of the repository for more about HTMLWrapper, you might also want to read about ASTRID, this was originally created as part of that project.
