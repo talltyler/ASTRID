@@ -2,7 +2,7 @@ ASTRID
 ===
 Rapid iterative development is hard to come by in the ActionScript community, ASTRID tries to fill that void a little and give a foundation to build on to hopefully make things even easier. There are more buzzwords that you will ever want to look at that can describe the foundation of what ASTRID was build on but that is not the point. It is a solid application structure that any application would benefit from starting off from and because of the way that it is built is extremely simple to swap parts of the framework out for different libraries or frameworks as you see fit. 
 
-To get something up and running you need three ActionScript files, here is the first.
+To get something up and running you need three ActionScript files, here is the first. 
 
 src/Main.as
 	package
