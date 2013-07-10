@@ -4,7 +4,8 @@ Rapid iterative development is hard to come by in the ActionScript community, AS
 
 To get something up and running you need three ActionScript files, here is the first. 
 
-src/Main.as
+_src/Main.as_ :
+
 	package
 	{
 		import flash.events.Event;
@@ -21,7 +22,9 @@ src/Main.as
 		}
 	}
 
-src/com/company/project/App.as
+
+_src/com/company/project/App.as_ :
+
 	package com.company.project
 	{
 		import flash.events.Event;
@@ -49,7 +52,8 @@ src/com/company/project/App.as
 	}
 
 
-// src/com/company/project/context/SiteContext.as
+_src/com/company/project/context/SiteContext.as_ :
+
 	package com.company.project.context
 	{
 		import framework.controller.ContextBase;
@@ -68,7 +72,9 @@ src/com/company/project/App.as
 		}
 	}
 
-// basic-template
+
+basic-template :
+
 	<html>
 		<div id="header">
 			<h1><% title %></h1>
@@ -82,8 +88,9 @@ src/com/company/project/App.as
 		</div>
 		<div id="footer"></div>
 	</html>
-	
-// /site/index.html
+
+
+_/site/index.html_ :
 
 	<% for each(item in data) %>
 		<img src="assets/images/<% item %>.jpg" />
